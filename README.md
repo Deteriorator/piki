@@ -1,9 +1,26 @@
-# piki
-python wiki
+## About piki
 
-# 使用
-* 在根目录创建一个文件夹`wiki`
-* 启动：·python3 wiki`
+piki is a wiki writen by python.
+
+# How to contribute
+
+Fork and send pull request.
+
+## How to run piki on your own machine
+
+1. install all required modules:
+
+```
+shell> pip3 install -r requirements.txt
+```
+
+2. create wiki depository : execute shell in root dir
+
+```
+shell> mkdir wiki
+```
+
+3. check above, using ``python3 wiki.py`` to start server.
 
 # TODO
-* 解决中文路径问题。
+1. fix bug: chinese url 
