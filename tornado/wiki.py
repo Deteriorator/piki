@@ -8,6 +8,7 @@ import shutil
 from tornado.options import options
 from setting import settings
 import time
+from urllib.parse import unquote
 
 def hex_to_chinese(path):
     if path.count('%') < 3:
@@ -45,7 +46,7 @@ class PreviewHandler(tornado.web.RequestHandler):
         if url == '/':
             url = '/index.md'
         path = url.split('/')[-1]
-        path = hex_to_chinese(path)
+        path = unquote(path)
         doc_path = settings['doc_path'] + path
         if os.path.exists(doc_path):
             doc_file = open(doc_path,'r')
