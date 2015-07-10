@@ -7,12 +7,20 @@ import shutil
 
 from tornado.options import options
 from setting import settings
+import time
 
+def hex_to_chinese(path):
+    if path.count('%') < 3:
+        return path
+    else:
+        start = path.find('%')
+        hexcode = path[start:start+9]
+        bcode = bytes.fromhex(hexcode.replace('%',''))        
+        path = path.replace(hexcode,bcode.decode())
+        return hex_to_chinese(path)
 class EditHandler(tornado.web.RequestHandler):
     def get(self):
-        print('----- edit get -----')
         path = self.get_argument("path","")
-        print(path)
         doc = ""
         if path != "":
             doc_file = open(settings['doc_path'] + path,'r')
@@ -25,7 +33,7 @@ class EditHandler(tornado.web.RequestHandler):
         doc = self.get_argument('doc')
         path = settings['doc_path'] + md
         if os.path.exists(path):
-            shutil.move(path,path+'.old')
+            shutil.move(path,path+time.strftime("%Y%m%d%H%M"))
         doc_file = open(settings['doc_path'] + md,'w')
         doc_file.write(doc)
         doc_file.close()
@@ -33,14 +41,11 @@ class EditHandler(tornado.web.RequestHandler):
 
 class PreviewHandler(tornado.web.RequestHandler):
     def get(self):
-        print('-----------preview get -----------')
         url = self.request.uri
-        print(url)
-        print(type(url))
         if url == '/':
             url = '/index.md'
         path = url.split('/')[-1]
-        print(path)
+        path = hex_to_chinese(path)
         doc_path = settings['doc_path'] + path
         if os.path.exists(doc_path):
             doc_file = open(doc_path,'r')
@@ -51,7 +56,6 @@ class PreviewHandler(tornado.web.RequestHandler):
             doc_file = open(doc_path,'w')
             doc_file.write('待完善')
             doc_file.close()
-            print(path)
             self.redirect('/edit.html?path=' + path)
 
 class Application(tornado.web.Application):
