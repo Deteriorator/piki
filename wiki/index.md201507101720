@@ -1,6 +1,0 @@
-#### [技术](tech.md)
-#### [工作](work.md)
-#### [读书](reading.md)
-#### [网摘](collection.md)
-#### [旅游](trip.md)
-#### [运动](sport.md)

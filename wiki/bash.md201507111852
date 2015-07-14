@@ -1,5 +1,0 @@
-#### 示例
-* 出/var下大100M的文件
-```
-find /var/ -type f -size +100000k -exec ls -lh {} \; | awk '{print $9 ":" $5}'
-```

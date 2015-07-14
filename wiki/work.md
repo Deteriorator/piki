@@ -1,2 +1,0 @@
-#### [大岂系统架构](dqsystem.md)
-#### [mongodb](dqmongodb.md)
