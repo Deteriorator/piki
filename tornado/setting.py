@@ -6,7 +6,8 @@ settings = dict(
     # xsrf_cookies = True,
     cookie_secret = "test",
     secure_cookie = "testtest",
-    login_url = "/auth/login",
+    login_url = "/auth.html",
     doc_path = os.path.join(os.path.dirname(__file__),"../wiki/"),
+    user_db = os.path.join(os.path.dirname(__file__),"../wiki/user.db"),
     debug = True,
 )

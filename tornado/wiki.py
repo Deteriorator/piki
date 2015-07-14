@@ -10,18 +10,27 @@ from setting import settings
 import time
 from urllib.parse import unquote
 
-def hex_to_chinese(path):
-    if path.count('%') < 3:
-        return path
-    else:
-        start = path.find('%')
-        hexcode = path[start:start+9]
-        bcode = bytes.fromhex(hexcode.replace('%',''))        
-        path = path.replace(hexcode,bcode.decode())
-        return hex_to_chinese(path)
-class EditHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    def get_current_user(self):
+        user = {}
+        user_id = self.get_secure_cookie('wiki_user')
+        if not user_id:
+            return user
+        db_file = open(settings['user_db'],'r')
+        db = db_file.read()
+        db_file.close()
+        for line in db:
+            line = line.split('\t')
+            if line[0] == user_id:
+                user['username'] = line[1]
+                user['password'] = line[2]
+                user['email'] = line[3]
+        return user
+class EditHandler(BaseHandler):
+    #@tornado.web.authenticated
     def get(self):
         path = self.get_argument("path","")
+        print('path',path)
         doc = ""
         if path != "":
             doc_file = open(settings['doc_path'] + path,'r')
@@ -40,7 +49,7 @@ class EditHandler(tornado.web.RequestHandler):
         doc_file.close()
         self.write('1')
 
-class PreviewHandler(tornado.web.RequestHandler):
+class PreviewHandler(BaseHandler):
     def get(self):
         url = self.request.uri
         if url == '/':
@@ -59,11 +68,36 @@ class PreviewHandler(tornado.web.RequestHandler):
             doc_file.close()
             self.redirect('/edit.html?path=' + path)
 
+class AuthHandler(BaseHandler):
+    def get(self):
+        user = self.get_current_user()
+        if user is None or user.get('username') is None:
+            self.render('login.html')
+        else:
+            self.write('h2')
+    def post(self):
+        username = self.get_argument('username','')
+        password = self.get_argument('password','')
+        
+class UmlHandler(BaseHandler):
+    def get(self):
+        self.render('uml.html')
+class RegHandler(BaseHandler):
+    def get(self):
+        self.render('reg.html')
+    def post(self):
+        username = self.get_argument('username','')
+        password = self.get_argument('password','')
+        email = self.get_argument('email','')
+         
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
                 ('/edit.html',EditHandler),
                 ('/save.html',EditHandler),
+                ('/auth.html',AuthHandler),
+                ('/reg.html',RegHandler),
+                ('/uml.html',UmlHandler),
                 ('/.*',PreviewHandler),
                 ]
        

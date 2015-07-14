@@ -1,0 +1,12 @@
+#### 常用命令和工具
+* [tmux](tmux.md)
+* [sort](sort.md)
+* [grep](grep.md)
+* [kill](kill.md)
+* [rsync](rsync.md)
+* [lsof](lsof.md)
+* [quota](quota.md)
+* [sed](sed.md)
+                                                   
+#### 字符界面与图形界面的切换
+在linux下alt+shift+F1(F1-F6)可以切换到字符界面,alt+shift+F7可以切回图形界面
