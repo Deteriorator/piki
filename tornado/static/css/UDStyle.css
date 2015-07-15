@@ -269,7 +269,7 @@ div#ud_delete_div {
   border-right: none;
   border-top: none;
   
-  background: url('../img/app/delete_button.png') no-repeat;
+  background: url('../static/img/uml/delete_button.png') no-repeat;
 }
 
 div#ud_delete_div:hover {
