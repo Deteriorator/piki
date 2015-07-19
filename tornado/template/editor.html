@@ -4,7 +4,6 @@
         <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/codemirror.css') }}" rel="stylesheet">
-        <link href="{{ static_url('css/mermaid.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="container">
@@ -36,7 +35,6 @@
     <script type="text/javascript" src="{{ static_url('js/clike.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/matchbrackets.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/vim.js') }}"></script>
-    <script type="text/javascript" src="{{ static_url('js/mermaid.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -56,7 +54,6 @@
         keys = '';
         commandDisplay.innerHTML = keys;
         document.getElementById("preview").innerHTML = marked(editor.getValue());
-        mermaid.init();
       });
 
       document.getElementById("preview").innerHTML = marked(document.getElementById("code").value);
