@@ -2,6 +2,7 @@
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
+import pymysql
 
 from tornado.options import options
 from setting import settings
@@ -22,8 +23,19 @@ class Application(tornado.web.Application):
                 ('/uml.html',UmlHandler),
                 ('/.*',PreviewHandler),
                 ]
+        self.db = pymysql.Connection(
+                host=settings['db_host'],
+                db = settings['db_name'],
+                user = settings['db_user'],
+                charset = 'utf8',
+                passwd = settings['db_password']
+                )
        
         tornado.web.Application.__init__(self,handlers,**settings)
+    def __del__(self):
+        print('db closing...')
+        self.db.close()
+
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())

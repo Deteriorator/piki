@@ -1,8 +1,9 @@
 from handler.base import BaseHandler
 from setting import settings
+import tornado
 
 class EditHandler(BaseHandler):
-    #@tornado.web.authenticated
+    @tornado.web.authenticated
     def get(self):
         path = self.get_argument("path","")
         print('path',path)
@@ -13,6 +14,7 @@ class EditHandler(BaseHandler):
             doc_file.close()
         self.render("editor.html",doc=doc,path=path)
 
+    @tornado.web.authenticated
     def post(self):
         md = self.get_argument('md')
         doc = self.get_argument('doc')

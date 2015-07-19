@@ -10,4 +10,8 @@ settings = dict(
     doc_path = os.path.join(os.path.dirname(__file__),"../wiki/"),
     user_db = os.path.join(os.path.dirname(__file__),"../wiki/user.db"),
     debug = True,
+    db_host = 'admin.moseeker.com',
+    db_name = 'zentao',
+    db_user = 'daqi',
+    db_password = '5F51692091B4031640E18E7C27430E071BC878C8',
 )
