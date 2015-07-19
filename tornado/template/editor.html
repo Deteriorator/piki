@@ -53,6 +53,8 @@
       CodeMirror.on(editor, 'vim-command-done', function(e) {
         keys = '';
         commandDisplay.innerHTML = keys;
+      });
+      CodeMirror.on(editor,'change',function(e){
         document.getElementById("preview").innerHTML = marked(editor.getValue());
       });
 
