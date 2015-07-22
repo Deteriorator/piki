@@ -28,7 +28,9 @@ class Application(tornado.web.Application):
                 db = settings['db_name'],
                 user = settings['db_user'],
                 charset = 'utf8',
-                passwd = settings['db_password']
+                connect_timeout=28800,
+                passwd = settings['db_password'],
+                init_command =  settings['db_init_command']
                 )
        
         tornado.web.Application.__init__(self,handlers,**settings)

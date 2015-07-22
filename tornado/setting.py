@@ -14,4 +14,5 @@ settings = dict(
     db_name = 'zentao',
     db_user = 'daqi',
     db_password = '5F51692091B4031640E18E7C27430E071BC878C8',
+    db_init_command = 'set wait_timeout = 28800*3*7'
 )
