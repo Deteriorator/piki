@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title></title>
+        <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
+    </head>
+    <body>
+            <div id="nav">
+                <ul>
+                    <li><a href="/">首页</a>
+                    <li><a href="/edit.html?path={{path}}">编辑</a>
+                    <li><a href="/uml.html">UML</a>
+            </div>
+        <div id="container">
+            <div id="preview"></div>
+        </div>
+        <input type="hidden" id="doc" value="{{doc}}"></input>
+    </body>
+    <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
+    <script>
+        document.getElementById("preview").innerHTML = marked(document.getElementById("doc").value);
+    </script>
+</html>

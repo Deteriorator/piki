@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title></title>
+        <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/codemirror.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container">
+            <div id="editor-col">
+                <div id="editor-bar">
+                    <a href="/">首页</a>
+                </div>
+                <div id="editor-tool">tool</div>
+                <div id="editor">
+                    <textarea id="code" name="code">{{doc}}</textarea>
+                    <span id="command-display"></span>
+                </div>
+            </div>
+            <div id="preview-col">
+                <div id="preview-bar"><a id="save" href="#">保存</a></div>
+                <div id="preview-tool"></div>
+                <div id="preview"></div>
+            </div>
+        </div>
+        <div id="mask"></div>
+        <div id="dialog">
+            路径：<input type="text" id="path" value="{{path}}" /><br>
+            <button id="post">提交</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="{{ static_url('js/codemirror.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/dialog.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/searchcursor.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/clike.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/matchbrackets.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/vim.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        mode: "text/x-csrc",
+        keyMap: "vim",
+        matchBrackets: true,
+        showCursorWhenSelecting: true
+      });
+      var commandDisplay = document.getElementById('command-display');
+      var keys = '';
+      CodeMirror.on(editor, 'vim-keypress', function(key) {
+        keys = keys + key;
+        commandDisplay.innerHTML = keys;
+      });
+      CodeMirror.on(editor, 'vim-command-done', function(e) {
+        keys = '';
+        commandDisplay.innerHTML = keys;
+      });
+      CodeMirror.on(editor,'change',function(e){
+        document.getElementById("preview").innerHTML = marked(editor.getValue());
+      });
+
+      document.getElementById("preview").innerHTML = marked(document.getElementById("code").value);
+
+      function getCookie(name) {
+        var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+        return r ? r[1] : undefined;
+      }
+      saveButton = document.getElementById('save');
+      saveButton.onclick = function(e){
+          module_div = document.getElementById("dialog");
+          module_div.style.display = "block";
+          document.getElementById("mask").style.display = "block";
+      };
+      postButton = document.getElementById("post");
+      postButton.onclick = function(e){
+
+          xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function(){
+              if(xmlhttp.readyState == 4){
+                if(xmlhttp.status == 200){
+                    module_div = document.getElementById("dialog");
+                    module_div.style.display = "none";
+                    document.getElementById("mask").style.display = "none";
+                }
+              }
+          };
+          path = document.getElementById("path").value;
+          xmlhttp.open('post','save.html?ts=' + new Date().toString(),true);
+          body = 'md=' + encodeURIComponent(document.getElementById('path').value)
+              +'&doc=' + encodeURIComponent(editor.getValue());
+          xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+          xmlhttp.send(body);
+      };
+    </script>
+</html>
