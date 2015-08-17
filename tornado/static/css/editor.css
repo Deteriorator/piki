@@ -1,5 +1,6 @@
 #container{
     height:100%;
+    overflow: hidden;
 }
 #editor-col {
     float:left;
@@ -26,6 +27,9 @@
 }
 #preview {
     padding-left:10px;
+    height: 100%;
+    overflow: scroll;
+    padding-bottom: 90px;
 }
 #path {
     width:500px;
@@ -71,3 +75,8 @@ p {
     font:1.2em/1.8 Tahoma,Verdana,"宋体";
     letter-spacing:0.25px;
     margin:20px 0;
+}
+
+.CodeMirror-code {
+    padding-bottom: 150px;
+}
