@@ -11,7 +11,7 @@
                 <div id="editor-bar">
                     <a href="/">首页</a>
                 </div>
-                <div id="editor-tool">tool</div>
+                <!-- <div id="editor-tool">tool</div> -->
                 <div id="editor">
                     <textarea id="code" name="code">{{doc}}</textarea>
                     <span id="command-display"></span>
@@ -29,6 +29,7 @@
             <button id="post">提交</button>
         </div>
     </body>
+    <script type="text/javascript" src="{{ static_url('js/jquery-2.1.4.min.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/codemirror.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/dialog.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/searchcursor.js') }}"></script>
@@ -37,6 +38,7 @@
     <script type="text/javascript" src="{{ static_url('js/vim.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
+
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         mode: "text/x-csrc",
@@ -90,5 +92,33 @@
           xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
           xmlhttp.send(body);
       };
+
+      // sync scroll
+      (function () {
+        var leftView, rightView, 
+          leftViewHeight, rightViewHeight,
+          viewHeight,
+          leftDeltaHeight, rightDeltaHeight,
+          ratio;
+
+        leftView = $(".CodeMirror-scroll");
+        rightView = $("#preview");
+        /* height will be affected by overflow attribute, 
+          use scrollHeight attribute to get total height */
+        leftViewHeight = leftView[0].scrollHeight;
+        rightViewHeight = rightView[0].scrollHeight;
+        viewHeight = $("#container").height();
+
+        // use delta value to calculate the ratio of scrolled position
+        leftDeltaHeight = leftViewHeight - viewHeight;
+        rightDeltaHeight = rightViewHeight - viewHeight;
+        ratio = rightDeltaHeight / leftDeltaHeight;
+
+        // sync scroll
+        leftView.scroll(function (event) {
+          var scrollTopVal = (leftView.scrollTop());
+          rightView.scrollTop(scrollTopVal * ratio);
+        })
+      })();
     </script>
 </html>
