@@ -21,10 +21,13 @@
 				if(width > 1000) width = 1000;
 
         var app = new Application( { id: 'umldiagram', width: width, height: 580 } );  
+        app.setXMLString(document.getElementById('uml').value)
       }
     </script>
   </head>
   <body>
+      <input type="hidden" id="path" name="path" value="{{path}}" />
+      <input type="hidden" id="uml" name="uml" value="{{uml}}" />
     <div id="umldiagram" >
     </div>
     <div id="debug"></div>
