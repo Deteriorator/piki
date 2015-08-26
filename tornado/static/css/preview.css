@@ -17,6 +17,7 @@ div {
     box-sizing: border-box;
 }
 body {
+    overflow: hidden;
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
     font-size: 13px;
@@ -151,6 +152,7 @@ sup {
 }
 #nav {
     height:40px;
+    border-bottom: 2px solid #ccc;
 }
 #nav ul li{
     list-style: none;

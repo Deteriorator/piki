@@ -1,18 +1,22 @@
 #container{
-    height:100%;
     overflow: hidden;
+    height:100%;
 }
 #editor-col {
+    position: relative;
     float:left;
     width:50%;
     height:100%;
 }
 #preview-col {
+    position: relative;
     float:right;
     width:50%;
     height:100%;
 }
 #editor-bar,#preview-bar{
+    position: absolute;
+    width: 100%;
     height:40px;
     background-color:black;
 }
@@ -21,12 +25,15 @@
     width:9px;
 }
 #editor {
+    padding-top: 40px;
     height:100%;
     border-right-style:dashed;
     padding-right:10px;
 }
 #preview {
-    padding-left:10px;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 100%;
     overflow: scroll;
     padding-bottom: 90px;
@@ -79,4 +86,9 @@ p {
 
 .CodeMirror-code {
     padding-bottom: 150px;
+}
+
+.CodeMirror-sizer {
+    min-width: 50%;
+    word-break: break-word;
 }
