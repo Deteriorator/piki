@@ -20,8 +20,9 @@ class Application(tornado.web.Application):
                 ('/save.html',EditHandler),
                 ('/auth.html',AuthHandler),
                 ('/reg.html',RegHandler),
-                ('/uml.html',UmlHandler),
-                ('/.*',PreviewHandler),
+                ('/\S*.uml$',UmlHandler),
+                ('/\S*.md$',PreviewHandler),
+                ('/',PreviewHandler),
                 ]
         self.db = pymysql.Connection(
                 host=settings['db_host'],

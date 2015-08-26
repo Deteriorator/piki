@@ -319,9 +319,8 @@ Application.prototype._generateGeneralMenu = function() {
 		};
 		// save
 		var p = function(v) {
-			active_tab = document.getElementsByClassName('active')[0];
-			uml = k.value;
-			name = active_tab.innerText;
+			uml = m.getXMLString();
+			path = document.getElementById('path').value;
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                 if(xmlhttp.reqdyState == 4){
@@ -330,9 +329,9 @@ Application.prototype._generateGeneralMenu = function() {
                     }
                 }
             };
-            xmlhttp.open('post','uml.html?ts='+new Date().toString(),true);
-            body = 'name=' + encodeURIComponent(name)
-                +'&uml='+encodeURIComponent(uml);
+            xmlhttp.open('post','uml.uml?ts='+new Date().toString(),true);
+            body = 'path=' + encodeURI(path)
+                +'&uml='+encodeURI(uml);
             xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
             xmlhttp.send(body);
 			
@@ -813,8 +812,10 @@ Application.prototype.foundInArray = function(c, b) {
 	return false
 };
 Application.prototype.setXMLString = function(a) {
-	a = a.replace(/\n/gi, "");
-	this.setXML((new DOMParser()).parseFromString(a, "text/xml"))
+    if(a != undefined){
+	    a = a.replace(/\n/gi, "");
+	    this.setXML((new DOMParser()).parseFromString(a, "text/xml"))
+    }
 };
 _acceptedDiagrams.push("UMLClassDiagram");
 _acceptedElementsUML.push([ "Class", "UMLClass" ],
