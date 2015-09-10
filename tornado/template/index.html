@@ -3,15 +3,29 @@
         <title></title>
         <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/icono.min.css') }}" rel="stylesheet">
     </head>
     <body>
-            <div id="nav">
-                <ul>
-                    <li><a href="/">首页</a>
-                    <li><a href="/edit.html?path={{path}}">编辑</a>
-                    <li><a href="/uml.html">UML</a>
-            </div>
         <div id="container">
+            <div id="editor-col">
+                <div id="editor-bar">
+                    <ul class="editor-ul">
+                        {% for header in handler.settings['headers'] %}
+                        <li class="editor-ul"><a href="{{ header[1] }}">{{ header[0] }}</a></li>
+                        {% end %}
+                    </ul>
+                </div>
+            </div>
+            <div id="preview-col">
+                <div id="preview-bar">
+                    <ul class="preview-ul">
+                        <li class="preview-li"><a href="/edit.html?path={{path}}"><i class="icono-document"></i></a>
+                        <li class="preview-li">
+                            <a href="/"><i class="icono-home"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div id="preview"></div>
         </div>
         <input type="hidden" id="doc" value="{{doc}}"></input>

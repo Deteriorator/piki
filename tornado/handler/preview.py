@@ -8,7 +8,6 @@ import tornado
 class PreviewHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        print('99999999999')
         url = self.request.uri
         if url == '/':
             url = '/index.md'

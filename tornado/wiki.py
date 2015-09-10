@@ -2,10 +2,10 @@
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-import pymysql
 
 from tornado.options import options
 from setting import settings
+from database.mydb import MyDB
 
 from handler.edit import EditHandler
 from handler.auth import AuthHandler
@@ -24,25 +24,14 @@ class Application(tornado.web.Application):
                 ('/\S*.md$',PreviewHandler),
                 ('/',PreviewHandler),
                 ]
-        self.db = pymysql.Connection(
-                host=settings['db_host'],
-                db = settings['db_name'],
-                user = settings['db_user'],
-                charset = 'utf8',
-                connect_timeout=28800,
-                passwd = settings['db_password'],
-                init_command =  settings['db_init_command']
-                )
+        self.db = MyDB(settings['mydb'])
        
         tornado.web.Application.__init__(self,handlers,**settings)
-    def __del__(self):
-        print('db closing...')
-        self.db.close()
 
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
-    http_server.listen(8888)
+    http_server.listen(settings['port'])
     tornado.ioloop.IOLoop.instance().start()
 
 

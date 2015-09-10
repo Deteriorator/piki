@@ -22,6 +22,5 @@ class BaseHandler(tornado.web.RequestHandler):
         user_id = self.get_secure_cookie('wiki_moseeker_com_user')
         if not user_id:
             return None
-        cur = self.db.cursor()
-        cur.execute('select * from dq_user where id = %s',(int(user_id)))
-        return cur.fetchone() 
+        user = self.db.get_user(user_id)
+        return  user
