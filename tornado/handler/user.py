@@ -9,12 +9,12 @@ class UserHandler(AuthHandler):
         user = cur.fetchone()
         cur.close()
         return user
-    def get_(self):
+    def get(self):
         path = self.request.uri
         path = path[path.rfind('/')+1:path.find('.html')]
         getattr(self,'get_'+path)() 
 
-    def post_(self):
+    def post(self):
         path = self.request.uri
         path = path[path.rfind('/')+1:path.find('.html')]
         getattr(self,'post_'+path)() 
