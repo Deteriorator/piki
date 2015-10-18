@@ -1,30 +1,28 @@
 #!/usr/bin/env python3
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
+import sqlite3
 
 from tornado.options import options
 from setting import settings
-from database.mydb import MyDB
 
-from handler.edit import EditHandler
-from handler.auth import AuthHandler
-from handler.reg import RegHandler
 from handler.uml import UmlHandler
-from handler.preview import PreviewHandler
+from handler.md import MdHandler
+from handler.td import TdHandler
+from handler.user import UserHandler
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-                ('/edit.html',EditHandler),
-                ('/save.html',EditHandler),
-                ('/auth.html',AuthHandler),
-                ('/reg.html',RegHandler),
+                ('/user/\S*.html',UserHandler),
                 ('/\S*.uml$',UmlHandler),
-                ('/\S*.md$',PreviewHandler),
-                ('/',PreviewHandler),
+                ('/\S*.md$',MdHandler),
+                ('/\S*.td$',TdHandler),
+                ('/',MdHandler),
                 ]
-        self.db = MyDB(settings['mydb'])
+        self.db = sqlite3.connect(settings['mydb'])
        
         tornado.web.Application.__init__(self,handlers,**settings)
 

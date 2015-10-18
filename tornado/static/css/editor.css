@@ -5,16 +5,26 @@ body {
 #container{
     height:100%;
 }
-#editor-col {
+#editor-col{
     float:left;
     width:50%;
+}
+#left{
+    float:left;
+    width:80%;
+    padding-left:10px;
 }
 #preview-col {
     float:right;
     width:50%;
 }
+#right {
+    float:right;
+    width:20%;
+    padding-top:20px;
+}
 #editor-bar,#preview-bar{
-    height:50px;
+    height:40px;
     background-color:#444;
 }
 #editor-tool,preview-tool {
@@ -60,7 +70,7 @@ body {
     z-index:1011;
     overflow:hidden;
 }
-#editor-bar a{
+#editor-bar,#preview-bar a{
     color:#d5d5d5;
 }
 #editor-bar a:link, #editor-bar a:visited #editor-bar a:hover #editor-bar a:active{
@@ -85,27 +95,17 @@ p {
 .preview-li {
     margin-right:10px;
     display:inline-block;
-    font-size:20px;
+    font-size:16px;
 }
-.editor-ul {
-    float:right;
-    margin:10px 20px 5px;
-    padding:0px;
-}
-.editor-li {
-    margin-right:10px;
-    display:inline-block;
-    font-size:20px;
-}
-a { text-decoration:none} 
 .editor-ul {
     float:left;
     margin:10px 20px 5px;
     padding:0px;
 }
 .editor-li {
-    margin-left:10px;
+    margin-right:10px;
     display:inline-block;
-    font-size:20px;
+    font-size:16px;
 }
+a { text-decoration:none} 
 .icono-document { transform: scale3d(1,0.85,1); }

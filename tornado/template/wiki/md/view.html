@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title></title>
+        <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
+        <link href="{{ static_url('css/icono.min.css') }}" rel="stylesheet">
+    </head>
+    <body>
+            <div id="editor-col">
+                <div id="editor-bar">
+                    <ul class="editor-ul">
+                        {% for header in handler.settings['headers'] %}
+                        <li class="editor-li"><a href="{{ header[1] }}">{{ header[0] }}</a></li>
+                        {% end %}
+                    </ul>
+                </div>
+            </div>
+            <div id="preview-col">
+                <div id="preview-bar">
+                    <ul class="preview-ul">
+                        <li class="preview-li"><a href="/">{{ current_user[1]}}</a>
+                        <li class="preview-li"><a href="{{path}}?m=edit">编辑</a>
+                        <li class="preview-li"><a id="subscribe" href="{{path}}?m=subscribe">订阅</a>
+                        <li class="preview-li"><a href="/">首页</i></a>
+                    </ul>
+                </div>
+            </div>
+        <div id="container">
+            <div id="left"></div>
+            <div id="right">
+                <ul>创建人：{{ wiki[3] if wiki is not None else '' }}</ul>
+                <ul>订阅人:
+                <hr>
+                    {% for item in subscriptions %}
+                    <li>{{ item[0] }}</li>
+                    {% end %}
+                </ul>
+                <ul>最新条目:
+                <hr>
+                    {% for item in news %}
+                    <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
+                    {% end %}
+                </ul>
+                <ul>最火条目:
+                <hr>
+                    {% for item in hots %}
+                    <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
+                    {% end %}
+                </ul>
+            </div>
+        </div>
+        <input type="hidden" id="doc" value="{{doc}}"></input>
+    </body>
+    <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
+    <script>
+        document.getElementById("left").innerHTML = marked(document.getElementById("doc").value);
+        subscribe_button = document.getElementById("subscribe");
+        subscribe_button.onclick = function(e){
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    if(xmlhttp.responseText == 2){
+                        alert('订阅成功!');
+                    }else{
+                        alert('订阅失败！没有创建人信息。');
+                    }
+                }
+            };  
+            
+            xmlhttp.open('get',subscribe_button.href,true);
+            xmlhttp.send();
+            return false;
+        }; 
+    </script>
+</html>
