@@ -34,7 +34,6 @@ class MdHandler(BaseHandler):
             order by datetime(w.create_time) desc
             limit 10
             """).fetchall()
-        print('news:',news)
         hots = cur.execute("""
             select w.id,w.title,w.pv  
             from piki_wiki w
@@ -67,7 +66,7 @@ class MdHandler(BaseHandler):
             doc_file = open(doc_path,'w')
             doc_file.write('待完善')
             doc_file.close()
-            self.redirect('/edit.html?path=' + path)
+            self.redirect('/%s?m=edit' % path)
 
     def get_edit(self):
         path = self.__get_path()
