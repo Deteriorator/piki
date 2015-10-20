@@ -32,7 +32,7 @@ class MdHandler(BaseHandler):
             from piki_wiki w
             join piki_user u on w.creator = u.id
             order by datetime(w.create_time) desc
-            limit 5
+            limit 10
             """).fetchall()
         print('news:',news)
         hots = cur.execute("""
@@ -40,7 +40,7 @@ class MdHandler(BaseHandler):
             from piki_wiki w
             join piki_user u on w.creator = u.id
             order by w.pv desc
-            limit 5
+            limit 10
             """).fetchall()
         subscriptions = []
         if wiki is not None:
@@ -105,7 +105,7 @@ class MdHandler(BaseHandler):
         doc = self.get_argument('doc')
 
         if wiki is not None:
-            self.__update_markdown(wiki,doc)
+            #self.__update_markdown(wiki,doc)
 
             cur = self.db.cursor()
             subscriptions = cur.execute("select u.email from piki_subscription s join piki_user u on s.uid = u.id where wid=?",
@@ -132,7 +132,7 @@ class MdHandler(BaseHandler):
         cursor = self.db.cursor()
         print(self.current_user[0])
         wiki = [(title,doc,self.current_user[0]),]
-        sql ="insert into piki_wiki (title,markdown,creator,pv,create_time) values ('%s','%s',%s,0,datetime())" % (title,doc,self.current_user[0])
+        sql ="insert into piki_wiki (title,creator,pv,create_time) values ('%s',%s,0,datetime())" % (title,self.current_user[0])
         print("sql:",sql)
         cursor.execute(sql)
         self.db.commit()
