@@ -4,7 +4,6 @@
         <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/codemirror.css') }}" rel="stylesheet">
-        <link href="{{ static_url('css/icono.min.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="container">
@@ -52,6 +51,7 @@
         lineNumbers: true,
         mode: "text/x-csrc",
         keyMap: "vim",
+        smartIndent: false,
         lineWrapping: true,
         matchBrackets: true,
         showCursorWhenSelecting: true
