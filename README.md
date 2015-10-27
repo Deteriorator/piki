@@ -26,6 +26,8 @@ shell> mkdir wiki
 ```
 default account is 'admin', the password is 'admin' also.
 
-4. check above, using ``python3 wiki.py`` to start server.
+4. cp tornado/setting-sample.py tornado/setting.py and change setting to fit your enviroment.
+
+5. check above, using ``python3 wiki.py`` to start server.
 
 # TODO
