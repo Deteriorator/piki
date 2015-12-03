@@ -49,3 +49,4 @@ nosetests.xml
 
 # wiki
 wiki/*
+tornado/static/wiki/*
