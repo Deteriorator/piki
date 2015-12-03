@@ -1,6 +1,7 @@
 body {
     margin:0px;
     box-shadow:0 1px 1px rgba(0,0,0,.2);
+    overflow:hidden;
 }
 #container{
     height:100%;
@@ -38,6 +39,8 @@ body {
 }
 #preview {
     padding-left:10px;
+    height:100%;
+    overflow:scroll;
 }
 #path {
     width:500px;
