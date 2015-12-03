@@ -54,7 +54,7 @@ body {
     opacity:80;
     filter:alpha(opacity=80);
 }
-#dialog {
+.dialog {
     display:none;
     position:fixed;
     top:50%;

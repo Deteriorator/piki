@@ -4,13 +4,16 @@
         <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
         <link href="{{ static_url('css/codemirror.css') }}" rel="stylesheet">
+        <link href="{{ static_url('iconfont/iconfont.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="container">
             <div id="editor-col">
                 <div id="editor-bar">
                 </div>
-                <div id="editor-tool">tool</div>
+                <div id="editor-tool">
+                    <i class="icon iconfont" id="img">&#xf001a;</i> 
+                </div>
                 <div id="editor">
                     <textarea id="code" name="code">{{doc}}</textarea>
                     <span id="command-display"></span>
@@ -32,9 +35,15 @@
             </div>
         </div>
         <div id="mask"></div>
-        <div id="dialog">
+        <div class="dialog" id="dialog">
             路径：<input type="text" id="path" value="{{path}}" /><br>
             <button id="post">提交</button>
+        </div>
+        <div class="dialog" id="dialog_img">
+        <form method="post" enctype="multipart/form-data" action="/upload" id="form">
+            <input type="file" name="f" id="f"></input>
+            <input type="submit">></input>
+        </form>
         </div>
     </body>
     <script type="text/javascript" src="{{ static_url('js/jquery-2.1.4.min.js') }}"></script>
@@ -129,5 +138,42 @@
           rightView.scrollTop(scrollTopVal * ratio);
         })
       })();
+    insert_img = document.getElementById("img")
+    insert_img.onclick = function(){
+          module_div = document.getElementById("dialog_img");
+          module_div.style.display = "block";
+          document.getElementById("mask").style.display = "block";
+    }
+    form = document.getElementById("form");
+    f = document.getElementById("f");
+    form.onsubmit = function(event){
+        event.preventDefault();
+        var file = f.files[0];
+        var formData = new FormData();
+        formData.append("f",file,file.name);
+        var xhr = new XMLHttpRequest();
+        xhr.open("post","/upload",true);
+        xhr.onload = function(){
+            if(xhr.status === 200){
+                alert(1);
+                    module_div = document.getElementById("dialog_img");
+                    module_div.style.display = "none";
+                    document.getElementById("mask").style.display = "none";
+                    url = xhr.responseText;
+                    var doc = editor.getDoc();
+                    var cursor = doc.getCursor(); // gets the line number in the cursor position
+                    var line = doc.getLine(cursor.line); // get the line contents
+                    var pos = { // create a new object to avoid mutation of the original selection
+                        line: cursor.line,
+                        ch: line.length - 1 // set the character position to the end of the line
+                    }
+                    doc.replaceRange('\n ![image]('+url+')\n', pos); // adds a new line
+                }else{
+                alert("An error occurred!");
+            }
+        };
+        xhr.send(formData);
+    };
+
     </script>
 </html>

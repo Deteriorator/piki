@@ -12,6 +12,7 @@ from handler.uml import UmlHandler
 from handler.md import MdHandler
 from handler.td import TdHandler
 from handler.user import UserHandler
+from handler.upload import UploadHandler
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -20,6 +21,7 @@ class Application(tornado.web.Application):
                 ('/\S*.uml$',UmlHandler),
                 ('/\S*.md$',MdHandler),
                 ('/\S*.td$',TdHandler),
+                ('/upload',UploadHandler),
                 ('/',MdHandler),
                 ]
         self.db = sqlite3.connect(settings['mydb'])
