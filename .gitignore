@@ -1,11 +1,12 @@
 # setting file
-tornado/setting.py*
+tornado/setting.py
 
 *.py[cod]
 *.py-e
 *.swo
 *.swp
 *.so
+*.DS_Store
 
 # wiki
 wiki/*
