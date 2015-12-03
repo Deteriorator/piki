@@ -13,7 +13,10 @@ def send(to,subject,content):
     server = smtplib.SMTP()
     server.connect(settings['mail_smtp'])
     server.login(settings['mail_user'],settings['mail_pass'])
-
-    server.sendmail(settings['mail_send'],
-            to,
-            msg.as_string())
+    try:
+        server.sendmail(settings['mail_send'],
+                to,
+                msg.as_string())
+    except:
+        print(to)
+        print(msg.as_string())
