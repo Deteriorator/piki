@@ -23,10 +23,10 @@
                 <div id="preview-bar">
                     <ul class="preview-ul">
                         <li class="preview-li">
-                            <a id="save" href="#">保存</a>
+                        <a id="save" href="#">保存</a>
                         </li>
                         <li class="preview-li">
-                            <a href="/" >首页</a>
+                        <a href="/" >首页</a>
                         </li>
                     </ul>
                 </div>
@@ -40,13 +40,12 @@
             <button id="post">提交</button>
         </div>
         <div class="dialog" id="dialog_img">
-        <form method="post" enctype="multipart/form-data" action="/upload" id="form">
-            <input type="file" name="f" id="f"></input>
-            <input type="submit">></input>
-        </form>
+            <form method="post" enctype="multipart/form-data" action="/upload" id="form">
+                <input type="file" name="f" id="f"></input>
+                <input type="submit">></input>
+            </form>
         </div>
     </body>
-    <script type="text/javascript" src="{{ static_url('js/jquery-2.1.4.min.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/codemirror.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/dialog.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/searchcursor.js') }}"></script>
@@ -55,106 +54,91 @@
     <script type="text/javascript" src="{{ static_url('js/vim.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
-
-      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
-        mode: "text/x-csrc",
-        keyMap: "vim",
-        smartIndent: false,
-        lineWrapping: true,
-        matchBrackets: true,
-        showCursorWhenSelecting: true
-      });
-      var commandDisplay = document.getElementById('command-display');
-      var keys = '';
-      CodeMirror.on(editor, 'vim-keypress', function(key) {
-        keys = keys + key;
-        commandDisplay.innerHTML = keys;
-      });
-      CodeMirror.on(editor, 'vim-command-done', function(e) {
-        keys = '';
-        commandDisplay.innerHTML = keys;
-      });
-      CodeMirror.on(editor,'change',function(e){
-        document.getElementById("preview").innerHTML = marked(editor.getValue());
-      });
-
-      document.getElementById("preview").innerHTML = marked(document.getElementById("code").value);
-
-      function getCookie(name) {
-        var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
-        return r ? r[1] : undefined;
-      }
-      saveButton = document.getElementById('save');
-      saveButton.onclick = function(e){
-          module_div = document.getElementById("dialog");
-          module_div.style.display = "block";
-          document.getElementById("mask").style.display = "block";
-      };
-      postButton = document.getElementById("post");
-      postButton.onclick = function(e){
-
-          xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function(){
-              if(xmlhttp.readyState == 4){
-                if(xmlhttp.status == 200){
-                    module_div = document.getElementById("dialog");
-                    module_div.style.display = "none";
-                    document.getElementById("mask").style.display = "none";
-                }
-              }
-          };
-          path = document.getElementById("path").value;
-          xmlhttp.open('post',encodeURIComponent(document.getElementById('path').value) + '?m=edit'  ,true);
-          body = '&doc=' + encodeURIComponent(editor.getValue());
-          xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-          xmlhttp.send(body);
-      };
-
-      // sync scroll
-      (function () {
-        var leftView, rightView, 
-          leftViewHeight, rightViewHeight,
-          viewHeight,
-          leftDeltaHeight, rightDeltaHeight,
-          ratio;
-
-        leftView = $(".CodeMirror-scroll");
-        rightView = $("#preview");
-        /* height will be affected by overflow attribute, 
-          use scrollHeight attribute to get total height */
-        leftViewHeight = leftView[0].scrollHeight;
-        rightViewHeight = rightView[0].scrollHeight;
-        viewHeight = $("#container").height();
-
-        // use delta value to calculate the ratio of scrolled position
-        leftDeltaHeight = leftViewHeight - viewHeight;
-        rightDeltaHeight = rightViewHeight - viewHeight;
-        ratio = rightDeltaHeight / leftDeltaHeight;
+        // init CodeMirror
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers: true,
+            mode: "text/x-csrc",
+            keyMap: "vim",
+            smartIndent: false,
+            lineWrapping: true,
+            matchBrackets: true,
+            showCursorWhenSelecting: true
+        });
+        var commandDisplay = document.getElementById('command-display');
+        var keys = '';
+        CodeMirror.on(editor, 'vim-keypress', function(key) {
+            keys = keys + key;
+            commandDisplay.innerHTML = keys;
+        });
+        CodeMirror.on(editor, 'vim-command-done', function(e) {
+            keys = '';
+            commandDisplay.innerHTML = keys;
+        });
+        CodeMirror.on(editor,'change',function(e){
+            document.getElementById("preview").innerHTML = marked(editor.getValue());
+        });
 
         // sync scroll
-        leftView.scroll(function (event) {
-          var scrollTopVal = (leftView.scrollTop());
-          rightView.scrollTop(scrollTopVal * ratio);
-        })
-      })();
-    insert_img = document.getElementById("img")
-    insert_img.onclick = function(){
-          module_div = document.getElementById("dialog_img");
-          module_div.style.display = "block";
-          document.getElementById("mask").style.display = "block";
-    }
-    form = document.getElementById("form");
-    f = document.getElementById("f");
-    form.onsubmit = function(event){
-        event.preventDefault();
-        var file = f.files[0];
-        var formData = new FormData();
-        formData.append("f",file,file.name);
-        var xhr = new XMLHttpRequest();
-        xhr.open("post","/upload",true);
-        xhr.onload = function(){
-            if(xhr.status === 200){
+        var preview = document.getElementById('preview');
+        CodeMirror.on(editor,'scroll',function(e){
+            scrollInfo = editor.getScrollInfo();
+            preview.scrollTop = preview.scrollHeight * scrollInfo.top / scrollInfo.height;
+        });
+
+        // init preview content
+        document.getElementById("preview").innerHTML = marked(document.getElementById("code").value);
+
+        function getCookie(name) {
+            var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+            return r ? r[1] : undefined;
+        }
+
+        // save button event handler
+        saveButton = document.getElementById('save');
+        saveButton.onclick = function(e){
+            module_div = document.getElementById("dialog");
+            module_div.style.display = "block";
+            document.getElementById("mask").style.display = "block";
+        };
+
+        // post button event handler
+        postButton = document.getElementById("post");
+        postButton.onclick = function(e){
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(xmlhttp.readyState == 4){
+                    if(xmlhttp.status == 200){
+                        module_div = document.getElementById("dialog");
+                        module_div.style.display = "none";
+                        document.getElementById("mask").style.display = "none";
+                    }
+                }
+            };
+            path = document.getElementById("path").value;
+            xmlhttp.open('post',encodeURIComponent(document.getElementById('path').value) + '?m=edit'  ,true);
+            body = '&doc=' + encodeURIComponent(editor.getValue());
+            xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+            xmlhttp.send(body);
+        };
+
+        // insert image event handler
+        insert_img = document.getElementById("img")
+        insert_img.onclick = function(){
+            module_div = document.getElementById("dialog_img");
+            module_div.style.display = "block";
+            document.getElementById("mask").style.display = "block";
+        }
+        form = document.getElementById("form");
+        f = document.getElementById("f");
+        form.onsubmit = function(event){
+            event.preventDefault();
+            var file = f.files[0];
+            var formData = new FormData();
+            formData.append("f",file,file.name);
+            var xhr = new XMLHttpRequest();
+            xhr.open("post","/upload",true);
+            xhr.onload = function(){
+                if(xhr.status === 200){
                     module_div = document.getElementById("dialog_img");
                     module_div.style.display = "none";
                     document.getElementById("mask").style.display = "none";
@@ -167,12 +151,12 @@
                         ch: line.length - 1 // set the character position to the end of the line
                     }
                     doc.replaceRange('\n ![image]('+url+')\n', pos); // adds a new line
-                }else{
-                alert("An error occurred!");
-            }
+                    }else{
+                    alert("An error occurred!");
+                }
+            };
+            xhr.send(formData);
         };
-        xhr.send(formData);
-    };
 
     </script>
 </html>
