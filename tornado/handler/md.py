@@ -17,7 +17,6 @@ class MdHandler(BaseHandler):
         getattr(self,'post_' + method)() 
 
     def get_view(self):
-
         url = self.request.uri
         if url == '/':
             url = '/index.md'
@@ -33,6 +32,7 @@ class MdHandler(BaseHandler):
             join piki_user u on w.creator = u.id
             order by datetime(w.create_time) desc
             limit 10
+
             """).fetchall()
         hots = cur.execute("""
             select w.id,w.title,w.pv  
@@ -41,6 +41,7 @@ class MdHandler(BaseHandler):
             order by w.pv desc
             limit 10
             """).fetchall()
+
         subscriptions = []
         if wiki is not None:
             subscriptions = cur.execute("""
@@ -64,7 +65,7 @@ class MdHandler(BaseHandler):
             doc_file.close()
         else:
             doc_file = open(doc_path,'w')
-            doc_file.write('待完善')
+            doc_file.write('TODO')
             doc_file.close()
             self.redirect('/%s?m=edit' % path)
 

@@ -54,7 +54,18 @@
     <script type="text/javascript" src="{{ static_url('js/vim.js') }}"></script>
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
+        path = document.getElementById("path").value;
+        window.onbeforeunload = function() {
+            if(localStorage.getItem(path))
+                return "你还没有保存到服务器";
+            else
+                return;
+        };
+
         // init CodeMirror
+        var code = localStorage.getItem(path);
+        if(code) document.getElementById("code").value = code;
+
         var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
             lineNumbers: true,
             mode: "text/x-csrc",
@@ -76,6 +87,7 @@
         });
         CodeMirror.on(editor,'change',function(e){
             document.getElementById("preview").innerHTML = marked(editor.getValue());
+            localStorage.setItem(path,editor.getValue());
         });
 
         // sync scroll
@@ -99,11 +111,7 @@
             module_div = document.getElementById("dialog");
             module_div.style.display = "block";
             document.getElementById("mask").style.display = "block";
-        };
 
-        // post button event handler
-        postButton = document.getElementById("post");
-        postButton.onclick = function(e){
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                 if(xmlhttp.readyState == 4){
@@ -111,11 +119,12 @@
                         module_div = document.getElementById("dialog");
                         module_div.style.display = "none";
                         document.getElementById("mask").style.display = "none";
+                        localStorage.removeItem(path)
+                        alert("保存成功")
                     }
                 }
             };
-            path = document.getElementById("path").value;
-            xmlhttp.open('post',encodeURIComponent(document.getElementById('path').value) + '?m=edit'  ,true);
+            xmlhttp.open('post',encodeURIComponent(path) + '?m=edit'  ,true);
             body = '&doc=' + encodeURIComponent(editor.getValue());
             xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
             xmlhttp.send(body);
@@ -157,6 +166,5 @@
             };
             xhr.send(formData);
         };
-
     </script>
 </html>
