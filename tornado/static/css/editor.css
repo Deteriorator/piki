@@ -1,7 +1,7 @@
 body {
     margin:0px;
     box-shadow:0 1px 1px rgba(0,0,0,.2);
-    overflow:hidden;
+    overflow:auto;
 }
 #container{
     height:100%;
@@ -90,25 +90,19 @@ p {
 .CodeMirror-sizer {
     word-break: break-word;
 }
-.preview-ul {
+.nav-ul {
+    margin:10px 20px 5px;
+    padding:0px;
+}
+.float-right{
     float:right;
-    margin:10px 20px 5px;
-    padding:0px;
 }
-.preview-li {
-    margin-right:10px;
-    display:inline-block;
-    font-size:16px;
-}
-.editor-ul {
+.float-left{
     float:left;
-    margin:10px 20px 5px;
-    padding:0px;
 }
-.editor-li {
+.nav-ul li {
     margin-right:10px;
     display:inline-block;
     font-size:16px;
 }
 a { text-decoration:none} 
-.icono-document { transform: scale3d(1,0.85,1); }

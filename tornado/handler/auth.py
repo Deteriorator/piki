@@ -1,6 +1,5 @@
 import tornado.web
 from setting import settings
-import pymysql
 import json
 
 class AuthHandler(tornado.web.RequestHandler):

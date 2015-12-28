@@ -16,17 +16,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .icon{
-  font-size: 25px;
-  line-height: 25px;
+  font-size: 20px;
+  line-height: 20px;
   margin: 10px 0;
-  color:#333;
+  color:rgb(187, 187, 187);
   -webkit-transition: font-size 0.25s ease-out 0s;
   -moz-transition: font-size 0.25s ease-out 0s;
   transition: font-size 0.25s ease-out 0s;
-
 }
 .icon:hover{
-  font-size: 30px;
+  color: rgb(249,249,245);
   cursor:pointer;
 }
 

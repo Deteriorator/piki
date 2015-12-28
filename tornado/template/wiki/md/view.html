@@ -12,7 +12,7 @@
     <body>
             <div id="editor-col">
                 <div id="editor-bar">
-                    <ul class="editor-ul">
+                    <ul class="nav-ul float-left">
                         {% for header in handler.settings['headers'] %}
                         <li class="editor-li"><a href="{{ header[1] }}">{{ header[0] }}</a></li>
                         {% end %}
@@ -21,7 +21,7 @@
             </div>
             <div id="preview-col">
                 <div id="preview-bar">
-                    <ul class="preview-ul">
+                    <ul class="nav-ul float-right">
                         <li class="preview-li"><a href="/{{ current_user[1] }}.md">{{ current_user[1]}}</a>
                         <li class="preview-li"><a href="{{path}}?m=edit">编辑</a>
                         <li class="preview-li"><a id="subscribe" href="{{path}}?m=subscribe">订阅</a>

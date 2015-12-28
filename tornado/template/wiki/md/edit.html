@@ -10,9 +10,11 @@
         <div id="container">
             <div id="editor-col">
                 <div id="editor-bar">
+                    <ul class="nav-ul float-left">
+                        <li><i class="icon iconfont" id="img">&#xf001a;</i></li>
+                    </ul>
                 </div>
                 <div id="editor-tool">
-                    <i class="icon iconfont" id="img">&#xf001a;</i> 
                 </div>
                 <div id="editor">
                     <textarea id="code" name="code">{{doc}}</textarea>
@@ -21,11 +23,11 @@
             </div>
             <div id="preview-col">
                 <div id="preview-bar">
-                    <ul class="preview-ul">
-                        <li class="preview-li">
+                    <ul class="nav-ul float-right">
+                        <li class="nav-li">
                         <a id="save" href="#">保存</a>
                         </li>
-                        <li class="preview-li">
+                        <li class="nav-li">
                         <a href="/" >首页</a>
                         </li>
                     </ul>
@@ -42,7 +44,7 @@
         <div class="dialog" id="dialog_img">
             <form method="post" enctype="multipart/form-data" action="/upload" id="form">
                 <input type="file" name="f" id="f"></input>
-                <input type="submit">></input>
+                <input type="submit"></input>
             </form>
         </div>
     </body>
@@ -108,16 +110,12 @@
         // save button event handler
         saveButton = document.getElementById('save');
         saveButton.onclick = function(e){
-            module_div = document.getElementById("dialog");
-            module_div.style.display = "block";
             document.getElementById("mask").style.display = "block";
 
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                 if(xmlhttp.readyState == 4){
                     if(xmlhttp.status == 200){
-                        module_div = document.getElementById("dialog");
-                        module_div.style.display = "none";
                         document.getElementById("mask").style.display = "none";
                         localStorage.removeItem(path)
                         alert("保存成功")
