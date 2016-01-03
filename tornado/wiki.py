@@ -13,6 +13,7 @@ from handler.md import MdHandler
 from handler.td import TdHandler
 from handler.user import UserHandler
 from handler.upload import UploadHandler
+from handler.gt import GtHandler
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -21,6 +22,7 @@ class Application(tornado.web.Application):
                 ('/\S*.uml$',UmlHandler),
                 ('/\S*.md$',MdHandler),
                 ('/\S*.td$',TdHandler),
+                ('/\S*.gt$',GtHandler),
                 ('/upload',UploadHandler),
                 ('/',MdHandler),
                 ]
