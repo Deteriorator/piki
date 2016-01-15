@@ -31,6 +31,7 @@
   <script src="{{ static_url('js/ganttDrawerSVG.js') }}"></script>
   <script src="{{ static_url('js/ganttGridEditor.js') }}"></script>
   <script src="{{ static_url('js/ganttMaster.js') }}"></script>  
+  <script src="{{ static_url('js/html2canvas.min.js') }}"></script>  
 </head>
 <body style="background-color: #fff;">
     <input type="hidden" id="path" value="{{path}}" />
@@ -84,7 +85,7 @@ $(function() {
   //inject some buttons (for this demo only)
   $(".ganttButtonBar div").append("<button onclick='clearGantt();' class='button'>clear</button>")
           .append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-          .append("<button onclick='getFile();' class='button'>export</button>");
+          .append("<button onclick='export_png();' class='button'>export</button>")
   $(".ganttButtonBar h1").html("工作计划");
   $(".ganttButtonBar div").addClass('buttons');
   //overwrite with localized ones
@@ -179,6 +180,7 @@ function saveGanttOnServer() {
       if (response == '1') {
         prof.stop();
         localStorage.removeItem(path);
+        alert('success');
       } else {
         var errMsg="Errors saving project\n";
         if (response.message) {
@@ -255,7 +257,16 @@ function loadI18n() {
   };
 }
 
-
+// --------------- Export Png ----------
+function export_png() {
+    html2canvas(
+            document.body,
+            {
+                onrendered: function(canvas){
+                    alert(1);
+                }
+            });
+}
 
 //-------------------------------------------  Get project file as JSON (used for migrate project from gantt to Teamwork) ------------------------------------------------------
 function getFile() {
@@ -293,9 +304,9 @@ function loadFromLocalStorage() {
 
 
     //actualiza data
-    var offset=new Date().getTime()-ret.tasks[0].start;
-    for (var i=0;i<ret.tasks.length;i++)
-      ret.tasks[i].start=ret.tasks[i].start+offset;
+    //var offset=new Date().getTime()-ret.tasks[0].start;
+    //for (var i=0;i<ret.tasks.length;i++)
+    //  ret.tasks[i].start=ret.tasks[i].start+offset;
 
 
   }

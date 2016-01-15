@@ -1,63 +1,76 @@
-<html>
-    <head>
-        <title></title>
-        <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
-        <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
-        <style>
-            body{
-                overflow:auto;
-            }
-        </style>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ static_url('css/preview.css') }}" rel="stylesheet">
+    <link href="{{ static_url('css/editor.css') }}" rel="stylesheet">
+    <style>
+        body{
+            overflow:auto;
+        }
+    </style>
     </head>
     <body>
-            <div id="editor-col">
-                <div id="editor-bar">
-                    <ul class="nav-ul float-left">
-                        {% for header in handler.settings['headers'] %}
-                        <li class="editor-li"><a href="{{ header[1] }}">{{ header[0] }}</a></li>
+        <input type="hidden" id="doc" value="{{doc}}"></input>
+        <div class="header">
+            <div class="container">
+                <nav class="header-nav left">
+                    {% for header in handler.settings['headers'] %}
+                    <a class="header-nav-item" href="{{ header[1] }}">{{ header[0] }}</a>
+                    {% end %}
+                </nav>
+                <nav class="header-nav right">
+                    <a class="header-nav-item" href="/{{ current_user[1] }}.md">{{ current_user[1]}}</a>
+                    <a class="header-nav-item" href="{{path}}?m=edit">编辑</a>
+                    <a class="header-nav-item" id="subscribe" href="{{path}}?m=subscribe">订阅</a>
+                    <a class="header-nav-item" href="/">首页</i></a>
+                </nav>
+            </div>
+        </div>
+        <div class="container body">
+            <div class="row">
+                <div class="col-sm-9 piki-main">
+                    <div class="panel html-panel" id="html"></div>
+                </div>
+                <div class="col-sm-3 piki-slider">
+                    <div class="panel">
+                        <ul>创建人：{{ wiki[3] if wiki is not None else '' }}</ul>
+                        <ul>订阅人:
+                        <hr>
+                            {% for item in subscriptions %}
+                        <li>{{ item[0] }}</li>
                         {% end %}
-                    </ul>
-                </div>
-            </div>
-            <div id="preview-col">
-                <div id="preview-bar">
-                    <ul class="nav-ul float-right">
-                        <li class="preview-li"><a href="/{{ current_user[1] }}.md">{{ current_user[1]}}</a>
-                        <li class="preview-li"><a href="{{path}}?m=edit">编辑</a>
-                        <li class="preview-li"><a id="subscribe" href="{{path}}?m=subscribe">订阅</a>
-                        <li class="preview-li"><a href="/">首页</i></a>
-                    </ul>
-                </div>
-            </div>
-        <div id="container">
-            <div id="left"></div>
-            <div id="right">
-                <ul>创建人：{{ wiki[3] if wiki is not None else '' }}</ul>
-                <ul>订阅人:
-                <hr>
-                    {% for item in subscriptions %}
-                    <li>{{ item[0] }}</li>
-                    {% end %}
-                </ul>
-                <ul>最新条目:
-                <hr>
-                    {% for item in news %}
-                    <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
-                    {% end %}
-                </ul>
-                <ul>最火条目:
-                <hr>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <ul>最新条目:
+                        <hr>
+                        {% for item in news %}
+                        <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
+                        {% end %}
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <ul>最火条目:
+                        <hr>
                     {% for item in hots %}
                     <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
                     {% end %}
                 </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <input type="hidden" id="doc" value="{{doc}}"></input>
     </body>
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
-        document.getElementById("left").innerHTML = marked(document.getElementById("doc").value);
+        document.getElementById("html").innerHTML = marked(document.getElementById("doc").value);
         subscribe_button = document.getElementById("subscribe");
         subscribe_button.onclick = function(e){
             xmlhttp = new XMLHttpRequest();
