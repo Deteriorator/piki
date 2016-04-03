@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1><small>PIKI安装向导</small></h1>
+            </div>
+            <div class="row">
+                <div class=".col-lg-8">
+                    <form class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">管理员帐号</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="realname" class="col-sm-2 control-label">管理员姓名</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="realname" id="realname" placeholder="realname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">管理员密码</label>
+                            <div class="col-sm-3">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">管理员邮箱</label>
+                            <div class="col-sm-3">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">安装</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
