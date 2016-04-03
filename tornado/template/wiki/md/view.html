@@ -26,9 +26,12 @@
                     {% end %}
                 </nav>
                 <nav class="header-nav right">
+                    {% if current_user is not None %}
                     <a class="header-nav-item" href="/{{ current_user[1] }}.md">{{ current_user[1]}}</a>
                     <a class="header-nav-item" href="{{path}}?m=edit">编辑</a>
-                    <a class="header-nav-item" id="subscribe" href="{{path}}?m=subscribe">订阅</a>
+                    {% else %}
+                    <a class="header-nav-item" href="/user/login.html">登录</a>
+                    {% end %}
                     <a class="header-nav-item" href="/">首页</i></a>
                 </nav>
             </div>
@@ -40,13 +43,7 @@
                 </div>
                 <div class="col-sm-3 piki-slider">
                     <div class="panel">
-                        <ul>创建人：{{ wiki[3] if wiki is not None else '' }}</ul>
-                        <ul>订阅人:
-                        <hr>
-                            {% for item in subscriptions %}
-                        <li>{{ item[0] }}</li>
-                        {% end %}
-                        </ul>
+                        <ul>创建人：{{ username }}</ul>
                     </div>
                     <div class="panel">
                         <ul>最新条目:
@@ -71,22 +68,5 @@
     <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
     <script>
         document.getElementById("html").innerHTML = marked(document.getElementById("doc").value);
-        subscribe_button = document.getElementById("subscribe");
-        subscribe_button.onclick = function(e){
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
-                    if(xmlhttp.responseText == 2){
-                        alert('订阅成功!');
-                    }else{
-                        alert('订阅失败！没有创建人信息。');
-                    }
-                }
-            };  
-            
-            xmlhttp.open('get',subscribe_button.href,true);
-            xmlhttp.send();
-            return false;
-        }; 
     </script>
 </html>

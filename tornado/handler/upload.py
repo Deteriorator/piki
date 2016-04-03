@@ -1,10 +1,10 @@
 import time
 import os
 
-from handler.auth import AuthHandler
+from handler.base import BaseHandler
 from setting import settings
 
-class UploadHandler(AuthHandler):
+class UploadHandler(BaseHandler):
     def get(self):
         self.render('upload.html')
 

@@ -1,8 +1,8 @@
 import hashlib
 
-from handler.auth import AuthHandler
+from handler.base import BaseHandler
 
-class UserHandler(AuthHandler):
+class UserHandler(BaseHandler):
     def get_user_by_np(self,username,password):
         cur = self.db.cursor()
         cur.execute("select * from piki_user where username=:username and password=:password",{'username':username,'password':password})
@@ -28,7 +28,7 @@ class UserHandler(AuthHandler):
         
         passwd = hashlib.md5(password.encode()).hexdigest() 
         user = self.get_user_by_np(username,passwd)
-
+        
         if user is None:
             self.render('user/login.html')
         else:
