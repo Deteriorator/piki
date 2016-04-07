@@ -43,13 +43,10 @@
                 </div>
                 <div class="col-sm-3 piki-slider">
                     <div class="panel">
-                        <ul>创建人：{{ username }}</ul>
-                    </div>
-                    <div class="panel">
-                        <ul>最新条目:
+                        <ul>最新:
                         <hr>
                         {% for item in news %}
-                        <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
+                        <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
                         {% end %}
                         </ul>
                     </div>
@@ -57,7 +54,7 @@
                         <ul>最火条目:
                         <hr>
                     {% for item in hots %}
-                    <li><a href="/{{ item[1] }}">{{ item[1] }}</a></li>
+                    <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
                     {% end %}
                 </ul>
                     </div>

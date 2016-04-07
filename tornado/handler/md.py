@@ -1,6 +1,7 @@
 import os
+import re
 import tornado
-import datetime
+import time
 import util.emailutil
 import logging
 
@@ -25,11 +26,16 @@ class MdHandler(BaseHandler):
         path = url.split('/')[-1]
         path = unquote(path)
         wiki = self.__get_wiki(path)
-        markdown = 'TODO'
+        doc_path = settings['doc_path'] + path
+        markdown = """
+        <!--
+        title:无标题
+        -->
+        """
         username = ''
         cur = self.db.cursor()
         news = cur.execute("""
-            select w.id,w.title,u.realname,w.markdown  
+            select w.id,w.title,u.realname,w.path 
             from piki_wiki w
             join piki_user u on w.creator = u.id
             order by datetime(w.create_time) desc
@@ -37,7 +43,7 @@ class MdHandler(BaseHandler):
 
             """).fetchall()
         hots = cur.execute("""
-            select w.id,w.title,w.pv  
+            select w.id,w.title,w.pv,w.path  
             from piki_wiki w
             join piki_user u on w.creator = u.id
             order by w.pv desc
@@ -45,34 +51,32 @@ class MdHandler(BaseHandler):
             """).fetchall()
 
         subscriptions = []
-        if wiki is not None:
-            subscriptions = cur.execute("""
-                select u.realname
-                from piki_subscription s
-                join piki_user u on u.id = s.uid
-                where wid = ?
-                """,(wiki[0],)).fetchall()
 
-            cur.execute("update piki_wiki set pv = pv+1 where id =:id",{'id':wiki[0]}) 
-            self.db.commit()
-            cur.close()
-
-            username = wiki[3]
-            markdown = wiki[2]
-
-
-        self.render("wiki/md/view.html",
-            doc=markdown,path=path,
-            username=username,news=news,
-            subscriptions=subscriptions,hots=hots)
+        if os.path.exists(doc_path):
+            if wiki is not None:
+                cur.execute("update piki_wiki set pv = pv+1 where id =:id",{'id':wiki[0]}) 
+                self.db.commit()
+                cur.close()
+            doc_file = open(doc_path,'r')
+            markdown = doc_file.read()
+            self.render("wiki/md/view.html",
+                doc=markdown,path=path,
+                wiki=wiki,news=news,
+                subscriptions=subscriptions,hots=hots)
+            doc_file.close()
+        else:
+            doc_file = open(doc_path,'w')
+            doc_file.write('TODO')
+            doc_file.close()
+            self.redirect('/%s?m=edit' % path)
 
     def get_edit(self):
         path = self.__get_path()
         doc = "TODO"
-        wiki = self.__get_wiki(path)
-        if wiki is not None:
-            logging.info(wiki)
-            doc = wiki[2]
+        if path != "":
+            doc_file = open(settings['doc_path'] + path,'r')
+            doc = doc_file.read()
+            doc_file.close()
 
         self.render("wiki/md/edit.html",doc=doc,path=path)
 
@@ -126,13 +130,22 @@ class MdHandler(BaseHandler):
         self.write_file(path,doc)
         self.write('1')
 
-    def __add_wiki(self,title,doc):
+    def __add_wiki(self,path,doc):
+        doc = doc.replace('"','\"')
+        doc = doc.replace("'","\'")
+        
+        title = '无标题'
+        comment = re.findall('<!--([\s\S]*)-->',doc)
+        if len(comment) > 0:
+            titles = re.findall('title:(.*)',comment[0])
+            if len(titles) > 0:
+                title = titles[0]
+        #wiki = (title,path,self.current_user[0],0,datetime())
+        wiki = (title,path,self.current_user[0],0,time.time())
+        #sql ="insert into piki_wiki (title,path,creator,pv,create_time,markdown) values ('%s','%s',%s,0,datetime(),'%s')" % (title, path,self.current_user[0],doc)
+        sql ="insert into piki_wiki (title,path,creator,pv,create_time) values (?,?,?,?,?)"
         cursor = self.db.cursor()
-        print(self.current_user[0])
-        wiki = [(title,doc,self.current_user[0]),]
-        sql ="insert into piki_wiki (title,creator,pv,create_time,markdown) values ('%s',%s,0,datetime(),'%s')" % (title,self.current_user[0],doc)
-        print("sql:",sql)
-        cursor.execute(sql)
+        cursor.execute(sql,wiki)
         self.db.commit()
         cursor.close()
 
@@ -155,15 +168,27 @@ class MdHandler(BaseHandler):
                u.email
         FROM piki_wiki w
         JOIN piki_user u ON w.creator = u.id
-        WHERE title=:title
+        WHERE path=:path
         """
         cursor = self.db.cursor()
-        cursor.execute(sql,{'title':path})
+        try:
+            cursor.execute(sql,{'path':path})
+        except Exception as e:
+            self.redirect('/install.html')
+
         wiki = cursor.fetchone()
         cursor.close()
         return wiki
 
     def __update_markdown(self,wiki,doc):
+        doc = doc.replace('"','\"')
+        doc = doc.replace("'","\'")
+        title = '无标题'
+        comment = re.findall('<!--([\s\S]*)-->',doc)
+        if len(comment) > 0:
+            titles = re.findall('title:(.*)',comment[0])
+            if len(titles) > 0:
+                title = titles[0]
         cursor = self.db.cursor()
-        cursor.execute("update piki_wiki set markdown=:markdown where id=:id",{'markdown':doc,'id':int(wiki[0])})
+        cursor.execute("update piki_wiki set markdown=:markdown , title=:title where id=:id",{'markdown':doc,'title':title,'id':int(wiki[0])})
 
