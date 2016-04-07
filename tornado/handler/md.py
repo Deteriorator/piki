@@ -2,6 +2,7 @@ import os
 import tornado
 import datetime
 import util.emailutil
+import logging
 
 from handler.base import BaseHandler
 from urllib.parse import unquote
@@ -57,7 +58,7 @@ class MdHandler(BaseHandler):
             cur.close()
 
             username = wiki[3]
-            markdown = wiki[4]
+            markdown = wiki[2]
 
 
         self.render("wiki/md/view.html",
@@ -70,7 +71,8 @@ class MdHandler(BaseHandler):
         doc = "TODO"
         wiki = self.__get_wiki(path)
         if wiki is not None:
-            doc = wiki.markdown
+            logging.info(wiki)
+            doc = wiki[2]
 
         self.render("wiki/md/edit.html",doc=doc,path=path)
 
@@ -101,7 +103,7 @@ class MdHandler(BaseHandler):
         doc = self.get_argument('doc')
 
         if wiki is not None:
-            #self.__update_markdown(wiki,doc)
+            self.__update_markdown(wiki,doc)
 
             cur = self.db.cursor()
             subscriptions = cur.execute("select u.email from piki_subscription s join piki_user u on s.uid = u.id where wid=?",
@@ -128,7 +130,7 @@ class MdHandler(BaseHandler):
         cursor = self.db.cursor()
         print(self.current_user[0])
         wiki = [(title,doc,self.current_user[0]),]
-        sql ="insert into piki_wiki (title,creator,pv,create_time) values ('%s',%s,0,datetime())" % (title,self.current_user[0])
+        sql ="insert into piki_wiki (title,creator,pv,create_time,markdown) values ('%s',%s,0,datetime(),'%s')" % (title,self.current_user[0],doc)
         print("sql:",sql)
         cursor.execute(sql)
         self.db.commit()
