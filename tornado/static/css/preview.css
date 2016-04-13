@@ -1,12 +1,23 @@
+html {
+    height: 100%;
+}
 .header {
     z-index: 10;
-    position: fixed;
     width: 100%;
-    background-color: #444;
     height: 40px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #e2e2e2;
 }
 .body {
-    padding-top: 50px;
+    color: black;
+    height: 100%;
+}
+.piki-main {
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #e2e2e2;
+    height: 100%;
 }
 .left {
     float: left;
@@ -19,7 +30,6 @@
     padding-top: 10px;
 }
 .header-nav a{
-    color: #FFF;
     font-size: 16px;
     margin-right: 10px;
 }
@@ -42,7 +52,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
     font-size: 13px;
     line-height: 18px;
-    background-color: #F0F0F0;
+    height: 100%;
 }
 table {
 	margin: 10px 0 15px 0;
@@ -58,7 +68,7 @@ th {
 }
 
 a {
-    color: #0069d6;
+    //color: #0069d6;
 }
 a:hover {
     color: #0050a3;
@@ -177,4 +187,10 @@ sup {
     list-style: none;
     float:left;
     padding: 0 10 0 0
+}
+.panel > ul > li {
+    display: inline;
+}
+.row {
+    height: 100%;
 }

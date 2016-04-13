@@ -43,16 +43,16 @@
                 </div>
                 <div class="col-sm-3 piki-slider">
                     <div class="panel">
-                        <ul>最新:
-                        <hr>
+                        <ul>
+                            <h3>最新</h3>
                         {% for item in news %}
                         <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
                         {% end %}
                         </ul>
                     </div>
                     <div class="panel">
-                        <ul>最火条目:
-                        <hr>
+                        <ul>
+                        <h3>最火</h3>
                     {% for item in hots %}
                     <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
                     {% end %}
