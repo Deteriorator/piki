@@ -30,8 +30,9 @@ html {
     padding-top: 10px;
 }
 .header-nav a{
-    font-size: 16px;
+    font-size: 22px;
     margin-right: 10px;
+    font-weight: bold;
 }
 .html-panel {
     padding: 15px;
@@ -50,8 +51,8 @@ blockquote {
 body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 26.4px;
     height: 100%;
 }
 table {
@@ -68,7 +69,8 @@ th {
 }
 
 a {
-    //color: #0069d6;
+    color: black;
+    border-bottom: 1px dotted #06346f;
 }
 a:hover {
     color: #0050a3;
@@ -88,6 +90,7 @@ h5,
 h6 {
     color: #404040;
     line-height: 36px;
+    font-weight: bold;
 }
 h1 {
     margin-bottom: 18px;
@@ -97,10 +100,10 @@ h2 {
     font-size: 24px;
 }
 h3 {
-    font-size: 18px;
+    font-size: 22px;
 }
 h4 {
-    font-size: 16px;
+    font-size: 20px;
 }
 h5 {
     font-size: 14px;
@@ -188,9 +191,12 @@ sup {
     float:left;
     padding: 0 10 0 0
 }
-.panel > ul > li {
-    display: inline;
+.piki-slider > .panel > ul > li {
+    display: inline-block;
 }
 .row {
     height: 100%;
+}
+img {
+    max-width: 100%;
 }
