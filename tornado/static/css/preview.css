@@ -30,29 +30,16 @@ html {
     padding-top: 10px;
 }
 .header-nav a{
-    font-size: 16px;
+    font-size: 22px;
     margin-right: 10px;
-}
-.html-panel {
-    padding: 15px;
+    font-weight: bold;
 }
 body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 26.4px;
     height: 100%;
-}
-* {
-	-webkit-print-color-adjust: exact;
-}
-@media print {
-	body,code,pre code,h1,h2,h3,h4,h5,h6 {
-		color: black;
-	}
-	table, pre {
-		page-break-inside: avoid;
-	}
 }
 #nav {
     height:40px;
@@ -64,8 +51,11 @@ body {
     padding: 0 10 0 0
 }
 .piki-slider > .panel > ul > li {
-    display: inline;
+    display: inline-block;
 }
 .row {
     height: 100%;
+}
+img {
+    max-width: 100%;
 }
