@@ -79,27 +79,6 @@ class MdHandler(BaseHandler):
             doc_file.close()
 
         self.render("wiki/md/edit.html",doc=doc,path=path)
-
-    def get_subscribe(self):
-        path = self.__get_path()
-        wiki = self.__get_wiki(path)
-        cur = self.db.cursor()
-        subscriptions = cur.execute("select id from piki_subscription where wid=? and uid = ?",
-            (wiki[0], self.current_user[0],)).fetchall()
-        if len(subscriptions) > 0:
-            self.write("1")
-        else:
-            cur.execute("insert into piki_subscription (wid,uid) values (?,?)",(wiki[0],self.current_user[0],))
-            self.db.commit()
-            to = [wiki[6]]
-            subject = 'wiki订阅通知'
-            content = """
-                Hi %s,<br>
-                您创建的条目<a href='http://wiki.moseeker.com/%s'>%s</a>,被%s订阅了!!!
-            """ % (wiki[3],path,path,self.current_user[1])
-            util.emailutil.send(to,subject,content)
-            self.write("2")
-        cur.close()
                 
     def post_edit(self):
         path = self.__get_path()
@@ -140,9 +119,7 @@ class MdHandler(BaseHandler):
             titles = re.findall('title:(.*)',comment[0])
             if len(titles) > 0:
                 title = titles[0]
-        #wiki = (title,path,self.current_user[0],0,datetime())
-        wiki = (title,path,self.current_user[0],0,time.time())
-        #sql ="insert into piki_wiki (title,path,creator,pv,create_time,markdown) values ('%s','%s',%s,0,datetime(),'%s')" % (title, path,self.current_user[0],doc)
+        wiki = (title,path,self.current_user[0],0,time.ctime())
         sql ="insert into piki_wiki (title,path,creator,pv,create_time) values (?,?,?,?,?)"
         cursor = self.db.cursor()
         cursor.execute(sql,wiki)
@@ -165,7 +142,7 @@ class MdHandler(BaseHandler):
                u.realname,
                w.pv,
                w.create_time,
-               u.email
+               w.path
         FROM piki_wiki w
         JOIN piki_user u ON w.creator = u.id
         WHERE path=:path
