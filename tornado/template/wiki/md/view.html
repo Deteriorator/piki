@@ -47,13 +47,15 @@
                 <div class="site-name">
                     <h1 class="hidden">{{ wiki[1] }}</h1>
                     <a id="logo" href="/.">Forgetwall</a>
-                    <p class="description"></p>
+                    <p class="description">Write it down and forget</p>
                 </div>
                 <div id="nav-menu">
                     <a href="/." class="current"><i class="fa fa-home"> Home</i></a>
+                    <!--
                     <a href="/archives/"><i class="fa fa-archive"> Archive</i></a>
                     <a href="/about/"><i class="fa fa-user"> About</i></a>
                     <a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a>
+                    -->
                 </div>
             </div>
         <div id="layout" class="pure-g">
@@ -103,7 +105,6 @@
                                     <div class="widget-title"><i class="fa fa-file-o"> Recent</i></div>
                                     <ul class="post-list">
                                         {% for item in news %}
-                                            <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
                                             <li><a class="post-list-link" href="/{{ item[3] }}">{{ item[1] }}</a></li>
                                         {% end %}
                                     </ul>
@@ -152,28 +153,6 @@
             </nav>
         </div>
     </div>
-    <div class="container body">
-        <div class="row">
-            <div class="col-sm-9 piki-main">
-                <div class="panel markdown-body" id="html"></div>
-            </div>
-            <div class="col-sm-3 piki-slider">
-                <div class="panel">
-                    <ul>
-                        <h4>最新</h4>
-                    </ul>
-                </div>
-                <div class="panel">
-                    <ul>
-                        <h4>最火</h4>
-                        {% for item in hots %}
-                        <li><a href="/{{ item[3] }}">{{ item[1] }}</a></li>
-                        {% end %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 -->
 <script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
@@ -213,7 +192,7 @@
     tables: true,
     breaks: false,
     pedantic: false,
-    sanitize: true,
+    sanitize: false,
     smartLists: true,
     smartypants: false
   });
