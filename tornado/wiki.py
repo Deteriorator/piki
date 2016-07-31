@@ -20,11 +20,11 @@ from handler.install import InstallHandler
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-                ('/user/\S*.html',UserHandler),
-                ('/\S*.uml$',UmlHandler),
-                ('/\S*.md$',MdHandler),
-                ('/\S*.td$',TdHandler),
-                ('/\S*.gt$',GtHandler),
+                (r'/user/.+.html',UserHandler),
+                ('/.+.uml$',UmlHandler),
+                ('/.+.md$',MdHandler),
+                ('/.+.td$',TdHandler),
+                ('/.+.gt$',GtHandler),
                 ('/upload',UploadHandler),
                 ('/install.html',InstallHandler),
                 ('/',MdHandler),
