@@ -22,7 +22,8 @@ class MdHandler(BaseHandler):
     def get_view(self):
         url = self.request.uri
         if url == '/':
-            url = '/index.md'
+            recent_one = self.db.cursor().execute('select path from piki_wiki order by id desc limit 1').fetchone()
+            url = recent_one[0] 
         path = url.split('/')[-1]
         path = unquote(path)
         wiki = self.__get_wiki(path)
@@ -38,19 +39,9 @@ class MdHandler(BaseHandler):
             select w.id,w.title,u.realname,w.path 
             from piki_wiki w
             join piki_user u on w.creator = u.id
-            order by datetime(w.create_time) desc
-            limit 10
-
-            """).fetchall()
-        hots = cur.execute("""
-            select w.id,w.title,w.pv,w.path  
-            from piki_wiki w
-            join piki_user u on w.creator = u.id
-            order by w.pv desc
+            order by datetime(w.id) desc
             limit 10
             """).fetchall()
-
-        subscriptions = []
 
         if os.path.exists(doc_path):
             if wiki is not None:
@@ -59,10 +50,12 @@ class MdHandler(BaseHandler):
                 cur.close()
             doc_file = open(doc_path,'r')
             markdown = doc_file.read()
-            self.render("wiki/md/view.html",
-                doc=markdown,path=path,
-                wiki=wiki,news=news,
-                subscriptions=subscriptions,hots=hots)
+            comment = re.findall('<!--([\w\W]*)-->',markdown)
+            kv = {}
+            if len(comment) > 0:
+                for _ in re.findall('(.*):(.*)',comment[0]):
+                    kv[_[0]] = _[1]
+            self.render("wiki/md/view.html", doc=markdown,path=path, wiki=wiki,news=news,kv=kv)
             doc_file.close()
         else:
             doc_file = open(doc_path,'w')
@@ -70,6 +63,7 @@ class MdHandler(BaseHandler):
             doc_file.close()
             self.redirect('/%s?m=edit' % path)
 
+    @tornado.web.authenticated
     def get_edit(self):
         path = self.__get_path()
         doc = "TODO"
