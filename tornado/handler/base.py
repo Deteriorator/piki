@@ -2,23 +2,20 @@ import os
 import shutil
 import time
 import tornado.web
-
-from setting import settings
+import setting
 
 class BaseHandler(tornado.web.RequestHandler):
-    @property
-    def db(self):
-        return self.application.db
-
-    def get_current_user(self):
-        user_id = self.get_secure_cookie('wiki_moseeker_com_user')
-        user = None
-        if user_id is not None:
-            cur = self.db.cursor()
-            cur.execute("select id,realname,email from piki_user where id=:id",{'id':int(user_id)})
-            user = cur.fetchone()
-            cur.close()
-        return  user
+    def get_template_namespace(self):
+        ns = super(BaseHandler, self).get_template_namespace()
+        ns['url'] = setting.url
+        ns['title'] = setting.title
+        ns['subtitle'] = setting.subtitle
+        ns['description'] = setting.description
+        ns['categories'] = setting.categories
+        ns['tags'] = setting.tags
+        ns['headers'] = setting.headers
+        ns['links'] = setting.links
+        return ns
 
     def get(self):
         if self.current_user:

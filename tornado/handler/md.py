@@ -2,12 +2,11 @@ import os
 import re
 import tornado
 import time
-import util.emailutil
 import logging
 
+from setting import tornado_settings
 from handler.base import BaseHandler
 from urllib.parse import unquote
-from setting import settings
 
 class MdHandler(BaseHandler):
     def get_(self):

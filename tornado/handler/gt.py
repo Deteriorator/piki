@@ -2,11 +2,10 @@ import os
 import os.path
 import tornado
 import datetime
-import util.emailutil
 
 from handler.base import BaseHandler
 from urllib.parse import unquote
-from setting import settings
+from setting import tornado_settings
 
 class GtHandler(BaseHandler):
     def get_(self):

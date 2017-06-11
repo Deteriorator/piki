@@ -1,6 +1,6 @@
 from handler.base import BaseHandler
 from urllib.parse import unquote
-from setting import settings
+from setting import tornado_settings
 import tornado.web
 import os
 

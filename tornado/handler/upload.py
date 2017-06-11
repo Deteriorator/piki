@@ -2,7 +2,7 @@ import time
 import os
 
 from handler.base import BaseHandler
-from setting import settings
+from setting import tornado_settings
 
 class UploadHandler(BaseHandler):
     def get(self):

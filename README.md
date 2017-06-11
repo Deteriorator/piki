@@ -11,6 +11,7 @@ Fork and send pull request.
 1. install all required modules:
 
 ```
+shell> cd tornado
 shell> pip3 install -r requirements.txt
 ```
 
@@ -19,15 +20,9 @@ shell> pip3 install -r requirements.txt
 ```
 shell> mkdir wiki
 ```
-3. run init script :
-```
-> cd db;
-> python3 init.py
-```
-default account is 'admin', the password is 'admin' also.
 
 4. cp tornado/setting-sample.py tornado/setting.py and change setting to fit your enviroment.
 
-5. check above, using ``python3 wiki.py`` to start server.
+5. check above, using ``python3 app.py`` to start server.
 
 # TODO
