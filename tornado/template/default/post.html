@@ -1,0 +1,72 @@
+{% extends base.html %}
+{% block main %}
+<input type="hidden" id ="markdown" value="{{ post.markdown }}"/>
+<div class="post">
+    <h1 class="post-title">{{post.title}}</h1>
+    <div class="post-meta">{{post.create_time}}
+        <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        <span id="busuanzi_container_page_pv"> | 
+            <span id="busuanzi_value_page_pv"></span>
+            <span> Hits</span>
+        </span>
+    </div>
+    <div class="post-content" id="html"></div>
+    <script type="text/javascript" src="{{static_url('default/js/share.js')}}" async></script>
+    <a data-url="{{request.uri}}" data-id="cj3fofpty0017rpulcadxybx7" class="article-share-link">Share</a>
+    <div class="tags"></div>
+    <!--
+    <div class="post-nav">
+        <a href="/2017/05/16/torndb_max_idle/" class="pre"></a>
+        <a href="/2017/05/19/weekreport20170519/" class="next">周报20170519</a>
+    </div>
+    -->
+</div>
+<script type="text/javascript" src="{{ static_url('js/marked.js') }}"></script>
+<script>
+
+var toc = [];
+var renderer = (function() {
+    var renderer = new marked.Renderer();
+    renderer.heading = function(text, level, raw) {
+        var anchor = this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-');
+        toc.push({
+            anchor: anchor,
+            level: level,
+            text: text
+        });
+        return '<h'
+            + level
+            + ' id="'
+            + anchor
+            + '">'
+            + text
+            + '</h'
+            + level
+            + '>\n'
+            + '<a href="#toc"><a>\n';
+    };
+    return renderer;
+})();
+
+marked.setOptions({
+    renderer: renderer,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false
+});
+    var doc = document.getElementById("markdown").value;
+    var html = marked(doc);
+    var toc_html = '<div class="toc-title">Contents</div><ol class="toc">'
+        toc.forEach(function (entry) {
+            toc_html += '<li class="toc-item toc-level-2"><a class="toc-link" href="#'+entry.anchor+'">'+entry.text+'<a></li>\n';
+        });
+
+    toc_html += '</ol></div>';
+    document.getElementById("html").innerHTML = html;
+    document.getElementById("toc").innerHTML = toc_html;
+</script>
+{% end %}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta name="description" content="{{description}}">
+        <title>{{title}} | {{subtitle}}</title>
+        <link rel="stylesheet" type="text/css" href="{{static_url('default/css/style.css')}}?v=0.0.0">
+        <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css">
+        <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css">
+        <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css">
+        <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png">
+    </head>
+    <body>
+        <div class="body_container">
+            <div id="header">
+                <div class="site-name">
+                    <h1 class="hidden">{{title}}</h1>
+                    <a id="logo" href="/.">{{title}}</a>
+                    <p class="description">{{subtitle}}</p>
+                </div>
+                <div id="nav-menu">
+                    {% for header in headers %}
+                    <a href="{{ header['url'] }}" {% if request.uri == header['url'] %}class="current">{% end %}<i class="{{ header['class'] }}"> {{ header['title'] }}</i></a>
+                    {% end %}
+                </div>
+            </div>
+            <div id="layout" class="pure-g">
+                <div class="pure-u-1 pure-u-md-3-4">
+                    <div class="content_container">
+                    {% block main %}{% end %}
+                    </div>
+                </div>
+                <div class="pure-u-1-4 hidden_mid_and_down">
+                    <div id="sidebar">
+                        <div class="widget">
+                            <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank" class="search-form">
+                                <input type="search" name="word" maxlength="20" placeholder="Search"/>
+                                <input type="hidden" name="si" value="http://wancheng.site"/>
+                                <input name="tn" type="hidden" value="bds"/>
+                                <input name="cl" type="hidden" value="3"/>
+                                <input name="ct" type="hidden" value="2097152"/>
+                                <input name="s" type="hidden" value="on"/>
+                            </form>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div>
+                            <ul class="category-list">
+                                {% for category in categories %}
+                                <li class="category-list-item">
+                                    <a class="category-list-link" href="/{{category['url']}}">{{category['title']}}</a>
+                                </li>
+                                {% end %}
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-title">
+                                <i class="fa fa-star-o"> Tags</i>
+                            </div>
+                            <div class="tagcloud">
+                                {% for tag in tags %}
+                                <a href="/tag/{{tag}}/" style="font-size: 15px;">{{tag}}</a>
+                                {% end %}
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-title"><i class="fa fa-file-o"> Recent</i></div>
+                            <ul class="post-list">
+                                <li class="post-list-item"><a class="post-list-link" href=""></a></li>
+                               </ul>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-title"><i class="fa fa-external-link"> Links</i></div>
+                            <ul></ul>
+                            {% for link in links %}
+                            <a href="{{link['url']}}" title="{{link['title']}}" target="_blank">{{link['title']}}</a>
+                            {% end %}
+                        </div>
+                        <div class="widget">
+                            <div id="toc"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-4">
+                    <div id="footer">
+                        © <a>2017 </a>
+                        <a href="/." rel="nofollow">ForgetWall.</a>
+                        Powered by<a rel="nofollow" target="_blank" href="http://wancheng.site">Piki</a>
+                        <a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a>
+                        by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a>
+                    </div>
+                </div>
+            </div>
+            <a id="rocket" href="#top" class="show"></a>
+            <script type="text/javascript" src="{{static_url('default/js/totop.js')}}" async></script>
+            <script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script>
+            <script type="text/javascript" src="{{static_url('default/js/fancybox.js')}}" async></script>
+            <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css">
+            <script type="text/javascript" src="{{static_url('default/js/codeblock-resizer.js')}}"></script>
+            <script type="text/javascript" src="{{static_url('default//js/smartresize.js')}}"></script>
+            <script>
+                if(typeof(toc_html) != "undefined"){
+                    //document.getElementById("toc").innerHTML = toc_html;
+                }
+            </script>
+        </div>
+    </body>
+</html>

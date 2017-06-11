@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Wancheng' blog"><title>python_packages_for_crawler | ForgetWall</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">python_packages_for_crawler</h1><a id="logo" href="/.">ForgetWall</a><p class="description">Write it down and forget all.</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">python_packages_for_crawler</h1><div class="post-meta">Apr 30, 2017<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><h3 id="Re"><a href="#Re" class="headerlink" title="Re"></a>Re</h3><p>Re(regular expressions)是Python内置模块，用来支持正则表达式。有时写成regex，读成“ruai gai ke si”。</p>
+<p>MODULE REFERENCE<br>    <a href="https://docs.python.org/3.5/library/re.html" target="_blank" rel="external">https://docs.python.org/3.5/library/re.html</a></p>
+<pre><code>This module provides regular expression matching operations similar to
+those found in Perl.  It supports both 8-bit and Unicode strings; both
+the pattern and the strings being processed can contain null bytes and
+characters outside the US ASCII range.
+
+Regular expressions can contain both special and ordinary characters.
+Most ordinary characters, like &quot;A&quot;, &quot;a&quot;, or &quot;0&quot;, are the simplest
+regular expressions; they simply match themselves.  You can
+concatenate ordinary characters, so last matches the string &apos;last&apos;.
+
+The special characters are:
+</code></pre><h4 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h4><ul>
+<li>“.”      换号符以外的所以字符。</li>
+<li>“^”      匹配字符串的开始。</li>
+<li>“$”      匹配字符串的结束，或者换行符的开始。</li>
+<li>“*”      匹配重复0次或多次（贪婪模式：匹配所用重复）。</li>
+<li>“+”      匹配重复1次或多次（贪婪模式）。</li>
+<li>“?”      匹配重复0次或1次（贪婪模式）。</li>
+<li>*?,+?,?? 上面三个符号的非贪婪模式。 </li>
+<li>{m,n}    匹配m到n次（贪婪模式）。</li>
+<li>{m,n}?   匹配m到n次（非贪婪模式）。</li>
+<li>“\“     特殊字符的转义。</li>
+<li>[]       要匹配的字符列表。</li>
+<li>^[]                A “^” as the first character indicates a complementing set.</li>
+<li>“|”      或匹配</li>
+<li>(…)    Matches the RE inside the parentheses.<pre><code>The contents can be retrieved or matched later in the string.
+</code></pre></li>
+<li>(?aiLmsux) Set the A, I, L, M, S, U, or X flag for the RE (see below).</li>
+<li>(?:…)  Non-grouping version of regular parentheses.</li>
+<li>(?P<name>…) The substring matched by the group is accessible by name.</name></li>
+<li>(?P=name)     Matches the text matched earlier by the group named name.</li>
+<li>(?#…)  A comment; ignored.</li>
+<li>(?=…)  Matches if … matches next, but doesn’t consume the string.</li>
+<li>(?!…)  Matches if … doesn’t match next.</li>
+<li>(?&lt;=…) Matches if preceded by … (must be fixed length).</li>
+<li>(?&lt;!…) Matches if not preceded by … (must be fixed length).</li>
+<li><p>(?(id/name)yes|no) Matches yes pattern if the group with id/name matched,</p>
+<pre><code>the (optional) no pattern otherwise.
+</code></pre><p>  The special sequences consist of “\“ and a character from the list<br>  below.  If the ordinary character is not on the list, then the<br>  resulting RE will match the second character.</p>
+<pre><code>\number  Matches the contents of the group of the same number.
+\A       Matches only at the start of the string.
+\Z       Matches only at the end of the string.
+\b       Matches the empty string, but only at the start or end of a word.
+\B       Matches the empty string, but not at the start or end of a word.
+\d       Matches any decimal digit; equivalent to the set [0-9] in
+         bytes patterns or string patterns with the ASCII flag.
+         In string patterns without the ASCII flag, it will match the whole
+         range of Unicode digits.
+\D       Matches any non-digit character; equivalent to [^\d].
+</code></pre></li>
+<li><p>\s       匹配所用空白符，等于[ \t\n\r\f\v]。<br>很多时候你抓到的html源码包含空白符，用”.<em>“来匹配大段内容时，会匹配不到任何内容，因为”.</em>“不匹配空白符，你可以先用用re.sub(‘\s’, ‘’ ,html)去除空白符，如果你最终要抓的内容需要包括空格，那就使用re.sub(‘[\t\n\r\f\v]]’, ‘’, html).</p>
+</li>
+<li><p>\S       \s的补集，等于[^\s]。</p>
+</li>
+<li>\w       匹配任何字母或数字。Matches any alphanumeric character; equivalent to [a-zA-Z0-9_]<pre><code>in bytes patterns or string patterns with the ASCII flag.
+In string patterns without the ASCII flag, it will match the
+range of Unicode alphanumeric characters (letters plus digits
+plus underscore).
+With LOCALE, it will match the set [0-9_] plus characters defined
+as letters for the current locale.
+</code></pre></li>
+<li>\W       \w的补集</li>
+<li><p>\       Matches a literal backslash.</p>
+<p>  This module exports the following functions:</p>
+<pre><code>match     Match a regular expression pattern to the beginning of a string.
+fullmatch Match a regular expression pattern to all of a string.
+search    Search a string for the presence of a pattern.
+sub       Substitute occurrences of a pattern found in a string.
+subn      Same as sub, but also return the number of substitutions made.
+split     Split a string by the occurrences of a pattern.
+findall   Find all occurrences of a pattern in a string.
+finditer  Return an iterator yielding a match object for each match.
+compile   Compile a pattern into a RegexObject.
+purge     Clear the regular expression cache.
+escape    Backslash all non-alphanumerics in a string.
+</code></pre><p>  Some of the functions in this module takes flags as optional parameters:</p>
+<pre><code>A  ASCII       For string patterns, make \w, \W, \b, \B, \d, * \D
+               match the corresponding ASCII character categories
+               (rather than the whole Unicode categories, which is the
+               default).
+               For bytes patterns, this flag is the only available
+               behaviour and needn&apos;t be specified.
+I  IGNORECASE  Perform case-insensitive matching.
+L  LOCALE      Make \w, \W, \b, \B, dependent on the current locale.
+M  MULTILINE   &quot;^&quot; matches the beginning of lines (after a newline)
+               as well as the string.
+               &quot;$&quot; matches the end of lines (before a newline) as well
+               as the end of the string.
+S  DOTALL      &quot;.&quot; matches any character at all, including the newline.
+X  VERBOSE     Ignore whitespace and comments for nicer looking RE&apos;s.
+U  UNICODE     For compatibility only. Ignored for string patterns (it
+               is the default), and forbidden for bytes patterns.
+</code></pre><p>  This module also defines an exception ‘error’.</p>
+</li>
+</ul>
+<p>CLASSES<br>    builtins.Exception(builtins.BaseException)<br>        sre_constants.error</p>
+<pre><code>class error(builtins.Exception)
+ |  Common base class for all non-exit exceptions.
+ |  
+ |  Method resolution order:
+ |      error
+ |      builtins.Exception
+ |      builtins.BaseException
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, msg, pattern=None, pos=None)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from builtins.Exception:
+ |  
+ |  __new__(*args, **kwargs) from builtins.type
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from builtins.BaseException:
+ |  
+ |  __delattr__(self, name, /)
+ |      Implement delattr(self, name).
+ |  
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |  
+ |  __reduce__(...)
+ |      helper for pickle
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  __setattr__(self, name, value, /)
+ |      Implement setattr(self, name, value).
+ |  
+ |  __setstate__(...)
+ |  
+ |  __str__(self, /)
+ |      Return str(self).
+ |  
+ |  with_traceback(...)
+ |      Exception.with_traceback(tb) --
+ |      set self.__traceback__ to tb and return self.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from builtins.BaseException:
+ |  
+ |  __cause__
+ |      exception cause
+ |  
+ |  __context__
+ |      exception context
+ |  
+ |  __dict__
+ |  
+ |  __suppress_context__
+ |  
+ |  __traceback__
+ |  
+ |  args
+</code></pre><p>FUNCTIONS<br>    compile(pattern, flags=0)<br>        Compile a regular expression pattern, returning a pattern object.</p>
+<pre><code>escape(pattern)
+    Escape all the characters in pattern except ASCII letters, numbers and &apos;_&apos;.
+
+findall(pattern, string, flags=0)
+    Return a list of all non-overlapping matches in the string.
+
+    If one or more capturing groups are present in the pattern, return
+    a list of groups; this will be a list of tuples if the pattern
+    has more than one group.
+
+    Empty matches are included in the result.
+
+finditer(pattern, string, flags=0)
+    Return an iterator over all non-overlapping matches in the
+    string.  For each match, the iterator returns a match object.
+
+    Empty matches are included in the result.
+
+fullmatch(pattern, string, flags=0)
+    Try to apply the pattern to all of the string, returning
+    a match object, or None if no match was found.
+
+match(pattern, string, flags=0)
+    Try to apply the pattern at the start of the string, returning
+    a match object, or None if no match was found.
+
+purge()
+    Clear the regular expression caches
+
+search(pattern, string, flags=0)
+    Scan through string looking for a match to the pattern, returning
+    a match object, or None if no match was found.
+
+split(pattern, string, maxsplit=0, flags=0)
+    Split the source string by the occurrences of the pattern,
+    returning a list containing the resulting substrings.  If
+    capturing parentheses are used in pattern, then the text of all
+    groups in the pattern are also returned as part of the resulting
+    list.  If maxsplit is nonzero, at most maxsplit splits occur,
+    and the remainder of the string is returned as the final element
+    of the list.
+
+sub(pattern, repl, string, count=0, flags=0)
+    Return the string obtained by replacing the leftmost
+    non-overlapping occurrences of the pattern in string by the
+    replacement repl.  repl can be either a string or a callable;
+    if a string, backslash escapes in it are processed.  If it is
+    a callable, it&apos;s passed the match object and must return
+    a replacement string to be used.
+
+subn(pattern, repl, string, count=0, flags=0)
+    Return a 2-tuple containing (new_string, number).
+    new_string is the string obtained by replacing the leftmost
+    non-overlapping occurrences of the pattern in the source
+    string by the replacement repl.  number is the number of
+    substitutions that were made. repl can be either a string or a
+    callable; if a string, backslash escapes in it are processed.
+    If it is a callable, it&apos;s passed the match object and must
+    return a replacement string to be used.
+
+template(pattern, flags=0)
+    Compile a template pattern, returning a pattern object
+</code></pre><p>DATA<br>    A = 256<br>    ASCII = 256<br>    DOTALL = 16<br>    I = 2<br>    IGNORECASE = 2<br>    L = 4<br>    LOCALE = 4<br>    M = 8<br>    MULTILINE = 8<br>    S = 16<br>    U = 32<br>    UNICODE = 32<br>    VERBOSE = 64<br>    X = 64<br>    <strong>all</strong> = [‘match’, ‘fullmatch’, ‘search’, ‘sub’, ‘subn’, ‘split’, ‘fi…</p>
+<h4 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a>urllib</h4><h4 id="requests"><a href="#requests" class="headerlink" title="requests"></a>requests</h4><h4 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy"></a>scrapy</h4></div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://wancheng.site/2017/04/30/python-packages-for-crawler/" data-id="cj3fofpsi0000rpulr4f7kdkh" class="article-share-link">Share</a><div class="tags"></div><div class="post-nav"><a href="/2017/04/30/python-packages-for-data-science/" class="pre">python_packages_for_data_science</a><a href="/2017/05/05/weekreport20170512/" class="next">周报20170505</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://wancheng.site"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作/">工作</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/测试/">测试</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程工具/">编程工具</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/Tmux/" style="font-size: 15px;">Tmux</a> <a href="/tags/帐号/" style="font-size: 15px;">帐号</a> <a href="/tags/神经网络/" style="font-size: 15px;">神经网络</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/单元测试-tornado/" style="font-size: 15px;">单元测试,tornado</a> <a href="/tags/Tornado/" style="font-size: 15px;">Tornado</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/02/How-to-build-a-simple-neural-network-in-9-lines-of-Python-code/">如何用九行Python代码构建一个神经网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/weekreport20170527/">周报20170527</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/weekreport20170602/">周报20170527</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/19/weekreport20170519/">周报20170519</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/sshmanager/">sshmanager</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/16/torndb_max_idle/">torndb_max_idle</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/15/tornado_unittesting/">Tornado单元测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/05/weekreport20170505/">周报20170505</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/05/weekreport20170512/">周报20170505</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/python-packages-for-crawler/">python_packages_for_crawler</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://coolshell.cn/" title="酷壳 - COOLSHELL" target="_blank">酷壳 - COOLSHELL</a><ul></ul><a href="http://www.moseeker.com/" title="MoSeeker" target="_blank">MoSeeker</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a>2017 </a><a href="/." rel="nofollow">ForgetWall.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
