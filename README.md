@@ -2,6 +2,8 @@
 
 Piki是使用Pyton创建的一个wiki（blog）系统，不需要数据库，每个wiki（blog）都是一个markdown文件，系统高度可配置。
 
+参见示例网站[ForgetWall](http://www.wancheng.site)
+
 ## 如何使用
 
 * Piki需要在Python3下运行，请首先安装Python3
@@ -26,7 +28,7 @@ shell> cp tornado/setting-sample.py tornado/setting.py
 shell> python3 app.py
 ```
 
-如果一切顺利，你可以在浏览里访问：http://localhost:8888,看到一个属于你自己的wiki（blog）
+如果一切顺利，你可以在浏览里访问：http://localhost:8888, 看到一个属于你自己的wiki（blog）
 
 
 ## 如何配置
