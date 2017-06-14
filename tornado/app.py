@@ -13,7 +13,6 @@ class Application(tornado.web.Application):
                 ('/', IndexHandler),
                 ('/(.+.md)', MarkdownHandler),
                 ]
-
         tornado.web.Application.__init__(self,handlers,**tornado_settings)
 
 def main():

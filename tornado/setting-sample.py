@@ -1,26 +1,34 @@
-# encoding=utf-8
 import os
 
-settings = dict(
+tornado_settings = dict(
     template_path = os.path.join(os.path.dirname(__file__),"template"),
     static_path = os.path.join(os.path.dirname(__file__),"static"),
-    # xsrf_cookies = True,
-    cookie_secret = "www_forgetwall_com_user",
-    secure_cookie = "www_forgetwall_com_user",
-    login_url = "/user/login.html",
-    doc_path = os.path.join(os.path.dirname(__file__),"../wiki/"),
     debug = True,
-    mydb = os.path.join(os.path.dirname(__file__),'../db/piki.db'),
-    mail_from = '',
-    mail_send = '',
-    mail_smtp = '',
-    mail_user = '',
-    mail_pass = '',
     port=8888,
-    headers = [
-        ['研发','研发.md'],
-        ['运维','运维.md'],
-        ['IT支持','it支持.md'],
-        ['公司规章','公司规章.md']
-        ]
 )
+
+## Site
+title = 'ForgetWall'
+subtitle = 'Write it down and forget all.'
+description = 'Wancheng`s blog'
+author = "Wancheng Zhang"
+url = 'http://wancheng.site'
+theme = 'default' 
+
+# Category & Tag
+headers = [
+        {'title':'首页','url':'/','class':'fa fa-home'},
+        {'title':'归档','url':'life.md','class':'fa fa-archive'},
+        {'title':'关于','url':'life.md','class':'fa fa-about'},
+        {'title':'订阅','url':'life.md','class':'fa fa-rss'},
+        ]
+categories = [
+        {'title':'技术','url':'_tech.md'},
+        {'title':'生活','url':'life.md'},
+        ]
+tags = ['Python','神经网络','tmux','爬虫']
+
+links = [
+        {'title':'酷壳','url':'http://www.coolshell.cn'},
+        {'title':'邓侃的博客','url':'http://blog.sina.com.cn/kdeng'},
+        ]

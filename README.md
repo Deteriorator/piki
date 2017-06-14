@@ -26,3 +26,5 @@ shell> mkdir wiki
 5. check above, using ``python3 app.py`` to start server.
 
 # TODO
+* 404 Page
+* error Page
