@@ -4,7 +4,8 @@ import os
 class Post():
     def __init__(self,url):
         path = os.getcwd().replace('tornado','wiki')
-        with open('{path}/{url}'.format(path=path,url=url), encoding='utf-8') as f:
+        with open('{path}/{url}'.format(path=path,url=url)) as f:
+        #with open('{path}/{url}'.format(path=path,url=url), encoding='ISO-8859-1') as f:
             markdown = f.read()
             images = re.findall('!\[.*\]\((.*)\)',markdown)
             for image in images:
