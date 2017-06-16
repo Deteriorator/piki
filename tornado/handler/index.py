@@ -12,7 +12,6 @@ from util.post import Post
 class IndexHandler(BaseHandler):
     def get(self):
         path = os.getcwd().replace('tornado','wiki')
-        # 找出最近更新的10个md文件
         files = os.listdir(path)
         recents = []
         for item in files:
@@ -21,7 +20,7 @@ class IndexHandler(BaseHandler):
 
         recents.sort(key=lambda f: os.stat('{path}/{f}'.format(path=path, f=f)).st_ctime, reverse=True)
         posts = []
-        for f in recents[0:5]:
+        for f in recents[0:15]:
             logging.debug('file:{f}'.format(f=f))
             posts.append(Post(f))
 

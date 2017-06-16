@@ -1,6 +1,6 @@
 {% extends base.html %}
 {% block main %}
-{% for post in posts %}
+{% for post in posts[:5] %}
 <input type="hidden" id ="markdown_{{ posts.index(post) }}" value="{{ post.markdown }}"/>
 <div class="post">
     <h1 class="post-title">
