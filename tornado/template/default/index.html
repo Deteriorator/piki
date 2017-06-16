@@ -1,6 +1,6 @@
 {% extends base.html %}
 {% block main %}
-{% for post in posts %}
+{% for post in posts[:5] %}
 <input type="hidden" id ="markdown_{{ posts.index(post) }}" value="{{ post.markdown }}"/>
 <div class="post">
     <h1 class="post-title">
@@ -66,7 +66,7 @@ for(i=0; i<5; i++){
 
     toc_html += '</ol></div>';
     document.getElementById("html_"+i).innerHTML = html;
-    document.getElementById("toc").innerHTML = toc_html;
+    //document.getElementById("toc").innerHTML = toc_html;
 }
 </script>
 {% end %}
