@@ -73,9 +73,11 @@
                         <div class="widget">
                             <div class="widget-title"><i class="fa fa-file-o"> Recent</i></div>
                             <ul class="post-list">
+			    {% if request.uri == '/' %}
                                 {% for post in posts[5:] %}
                                 <li class="post-list-item"><a class="post-list-link" href="/{{post.url}}">{{post.title}}</a></li>
                                 {% end %}
+			    {% end %}
                             </ul>
                         </div>
                         <div class="widget">

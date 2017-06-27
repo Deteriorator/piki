@@ -1,9 +1,9 @@
 {% extends base.html %}
 {% block main %}
-<input type="hidden" id ="markdown" value="{{ post.markdown }}"/>
+<input type="hidden" id ="markdown" value="{{ p.markdown }}"/>
 <div class="post">
-    <h1 class="post-title">{{post.title}}</h1>
-    <div class="post-meta">{{post.create_time}}
+    <h1 class="post-title">{{p.title}}</h1>
+    <div class="post-meta">{{p.create_time}}
         <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
         <span id="busuanzi_container_page_pv"> | 
             <span id="busuanzi_value_page_pv"></span>
