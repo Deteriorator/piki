@@ -82,10 +82,11 @@
                         </div>
                         <div class="widget">
                             <div class="widget-title"><i class="fa fa-external-link"> Links</i></div>
-                            <ul></ul>
+                            <ul>
                             {% for link in links %}
-                            <a href="{{link['url']}}" title="{{link['title']}}" target="_blank">{{link['title']}}</a>
+                            <li class="post-list-item"><a href="{{link['url']}}" title="{{link['title']}}" target="_blank">{{link['title']}}</a></li>
                             {% end %}
+                            </ul>
                         </div>
                         <div class="widget">
                             <div id="toc"></div>

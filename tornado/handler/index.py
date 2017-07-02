@@ -12,15 +12,16 @@ from util.post import Post
 class IndexHandler(BaseHandler):
     def get(self):
         path = os.getcwd().replace('tornado','wiki')
-        files = os.listdir(path)
-        recents = []
-        for item in files:
-            if not item.startswith('_') and item.endswith('.md'):
-                recents.append(item)
+        files = [filename for filename in os.listdir(path) if not filename.startswith('_') and filename.endswith('.md')]
+        files_time = {}
+        for f in files:
+            stat_info = os.lstat('{path}/{f}'.format(path=path,f=f))
+            files_time[stat_info.st_mtime] = f
 
-        recents.sort(key=lambda f: os.stat('{path}/{f}'.format(path=path, f=f)).st_ctime, reverse=True)
+        recents = [files_time[k] for k in sorted(files_time.keys())] 
+
         posts = []
-        for f in recents[0:15]:
+        for f in recents[-15:]:
             logging.debug('file:{f}'.format(f=f))
             posts.append(Post(f))
 

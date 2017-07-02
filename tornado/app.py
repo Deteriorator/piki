@@ -6,12 +6,14 @@ import logging
 from setting import tornado_settings
 from handler.index import IndexHandler
 from handler.markdown import MarkdownHandler
+from handler.search import SearchHandler
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
                 ('/', IndexHandler),
                 ('/(.+.md)', MarkdownHandler),
+                ('/search/(.*)', SearchHandler),
                 ]
         tornado.web.Application.__init__(self,handlers,**tornado_settings)
 
