@@ -18,10 +18,10 @@ class IndexHandler(BaseHandler):
             stat_info = os.lstat('{path}/{f}'.format(path=path,f=f))
             files_time[stat_info.st_mtime] = f
 
-        recents = [files_time[k] for k in sorted(files_time.keys())] 
+        recents = [files_time[k] for k in sorted(files_time.keys(), reverse=True)] 
 
         posts = []
-        for f in recents[-15:]:
+        for f in recents[:15]:
             logging.debug('file:{f}'.format(f=f))
             posts.append(Post(f))
 
