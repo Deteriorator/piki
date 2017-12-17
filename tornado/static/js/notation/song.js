@@ -328,7 +328,7 @@ $(function() {
         "margin-right": "auto"
     }), document.oncontextmenu = function() {
         return !1
-    }, $("body").append('<div class="print-hint"><h3>温馨提醒：</h3><ul><li>为了防止谱子被盗用，快乐123不提供谱子打印和下载。</li><li>我们会经常添加一些新谱子。</li><li>谱子有错误，我们会及时修正。</li><li>我们网站会持续优化，会不断有新的功能。</li><li>所以，我们提倡大家来快乐123看谱、交流。</li></ul></div>'), $(".player-163").each(function(e, t) {
+    }, $("body").append(''), $(".player-163").each(function(e, t) {
         var a = $(t),
             n = {
                 id: a.attr("data-id"),
