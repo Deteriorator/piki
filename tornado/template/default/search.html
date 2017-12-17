@@ -1,0 +1,19 @@
+{% extends base.html %}
+{% block main %}
+{% for post in posts[:10] %}
+<div class="post">
+    <h1 class="post-title">
+        <a href="/{{post[0]}}">{{ post[0] }}</a>
+    </h1>
+    <div class="post-content">{{post[1]}}</div>
+</div>
+{% end %}
+<!--
+<nav class="page-navigator">
+    <span class="page-number current">1</span>
+    <a class="page-number" href="/page/2/">2</a>
+    <a class="page-number" href="/page/3/">3</a>
+    <a class="extend next" rel="next" href="/page/2/">Next</a>
+</nav>
+--->
+{% end %}

@@ -19,4 +19,3 @@ class Post():
             self.title = url if len(title) == 0 else title[0] 
 
             self.url = url
-

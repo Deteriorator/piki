@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{notation.title}}</title>
+        <meta charset="utf-8" />
+        <meta name="keywords" content="{{notation.title}}" />
+        <meta name="description" content='{{notation.title}}'/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+        <meta name="applicable-device" content="pc">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/materialize.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/reset.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/icomoon.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/sidebar.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/admin.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/bar-ui.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/player.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{static_url('css/notation/post.css')}}">
+        <script type="text/javascript" src="{{static_url('js/notation/ua.js')}}"></script><!--ignore-->
+    </head>
+    <body>
+
+        <div class="info" data-sid="LmiNa1aQm"
+                          data-sn="{{notation.sn}}"
+                          data-an="{{notation.an}}"
+                          data-kn="{{notation.kn}}"
+                          data-rt="{{notation.rt}}"
+                          data-in="{{notation.datain}}"
+                          data-fi="{{notation.fi}}"
+                          data-ly="{{notation.ly}}"
+                          data-nt="{{notation.nt}}" 
+                          ><h1></h1> 
+                          </div>
+
+
+        <a id="menu-icon">
+        </a>
+
+        <div id="box-container">
+            <div id="box">
+                <svg width="100%" id="music" version="1.1" width="1240" xmlns="http://www.w3.org/2000/svg">
+                </svg>
+            </div>
+        </div>
+
+        <div class="availableFins"></div>
+
+        <div class="accompanies" data-songs="[{&quot;name&quot;:&quot;\u4f5c\u54c1\u4f34\u594f&quot;,&quot;url&quot;:&quot;\/web\/jump.php?url=http%3A%2F%2Ffdfs.xmcdn.com%2Fgroup13%2FM0A%2FF9%2F62%2FwKgDXVawNhry3kNdACAwenr8s08683.mp3&quot;,&quot;type&quot;:&quot;audio&quot;}]"></div>
+
+
+        <div class="refs"></div>
+
+
+        <div id="post-wrapper"></div>
+
+        <script type="text/javascript">
+var globalData = {
+    'song_uuid' : 'LmiNa1aQm',
+    'song_name' : '女儿情',
+    'time_signature' : '2/4',
+    'user_id'   : '',
+    'nickname'  : '',
+    'os'        : '',
+    'is_vip'    : 0,
+    'is_favorited' : 0
+    //'logo_png'       : 'http://static.happi123.com/static/cdn/img/logo_516bc13ea4.png',
+    //'pay_alipay_png' : 'http://static.happi123.com/static/cdn/img/pay_alipay_7e22089830.png',
+    //'pay_wechat_png' : 'http://static.happi123.com/static/cdn/img/pay_wechat_f784a37d15.png',
+    //'pay_qq_png' : 'http://static.happi123.com/static/cdn/img/pay_qq_3347857913.png'
+};
+
+if(window.navigator.userAgent.match(/ipad/i) && !globalData.os){
+    globalData.os = 'ios';
+}
+
+        </script>
+
+        <!--  -->
+        <script src="https://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+if (typeof(window.jQuery) == 'undefined') {
+    console.log("jquery load failed");
+    document.write('<script src="/static/js/lib/jquery-1.8.3.min.js"><\/script>');
+}
+    </script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.7.0/underscore-min.js"></script>
+    <script>
+if (typeof(_) == 'undefined') {
+    console.log("underscore load failed");
+    document.write('<script src="/static/js/lib/underscore-min.js"><\/script>');
+}
+    </script>
+    <!---->
+    <script src="https://cdn.staticfile.org/soundmanager2/2.97a.20150601/script/soundmanager2-nodebug-jsmin.js
+    " /></script>
+
+    <script>
+if (typeof(soundManager) == 'undefined') {
+    console.log("soundmanager2 load failed");
+    document.write('<script src="/static/js/lib/soundmanager2-nodebug-jsmin.js"><\/script>');
+}
+    </script>
+    <script src="https://cdn.staticfile.org/snap.svg/0.4.1/snap.svg-min.js"></script>
+    <script>
+if (typeof(Snap) == 'undefined') {
+    console.log("snap.svg load failed");
+    document.write('<script src="/static/js/lib/snap.svg-min.js"><\/script>');
+}
+    </script>
+    <script src="https://cdn.staticfile.org/materialize/0.97.5/js/materialize.min.js"></script>
+    <script>
+if (typeof(Materialize) == 'undefined') {
+    console.log("Materialize load failed");
+    document.write('<script src="/static/js/lib/materialize.min.js"><\/script>');
+}
+    </script>
+    <script type="text/javascript" src="{{static_url('js/notation/MIDI.min.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/bar-ui.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/util.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/template.js')}}"></script> 
+    <script type="text/javascript" src="{{static_url('js/notation/measures.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/lyric.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/play.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/generate.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/song.js')}}"></script> 
+    <script type="text/javascript" src="{{static_url('js/notation/Base64binary.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/midiaudio.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/notation/metronome.js')}}"></script>
+
+    </body>
+</html>

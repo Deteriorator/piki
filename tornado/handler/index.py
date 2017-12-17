@@ -9,7 +9,10 @@ from handler.base import BaseHandler
 from urllib.parse import unquote
 from util.post import Post
 
+logger = logging.getLogger(__name__)
+
 class IndexHandler(BaseHandler):
+
     def get(self):
         path = os.getcwd().replace('tornado','wiki')
         files = [filename for filename in os.listdir(path) if not filename.startswith('_') and filename.endswith('.md')]
@@ -22,7 +25,7 @@ class IndexHandler(BaseHandler):
 
         posts = []
         for f in recents[:15]:
-            logging.debug('file:{f}'.format(f=f))
+            logger.debug('file:{f}'.format(f=f))
             posts.append(Post(f))
 
         self.render('{theme}/index.html'.format(theme=setting.theme), posts = posts)

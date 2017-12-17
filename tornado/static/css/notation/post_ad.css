@@ -1,0 +1,16 @@
+#post-wrapper .collection-item {
+	background-color: #f7f7f7
+}
+
+#post-wrapper .secondary-content {
+	font-size: 14px
+}
+
+#post-wrapper .title {
+	border: 0;
+	padding-left: 0
+}
+
+#post-wrapper p {
+	font-size: 16px
+}
