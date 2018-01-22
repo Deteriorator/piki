@@ -10,6 +10,7 @@ from handler.index import IndexHandler
 from handler.markdown import MarkdownHandler
 from handler.notation import NotationHandler
 from handler.search import SearchHandler
+from handler.upload import UploadHandler
 
 logging.config.dictConfig(logging_config.config)
 
@@ -20,6 +21,7 @@ class Application(tornado.web.Application):
                 ('/(.+.md)', MarkdownHandler),
                 ('/(.+.mn)', NotationHandler),
                 ('/search/(.*)', SearchHandler),
+                ('/upload', UploadHandler),
                 ]
         tornado.web.Application.__init__(self,handlers,**tornado_settings)
 
